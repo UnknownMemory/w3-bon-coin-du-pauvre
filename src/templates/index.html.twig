@@ -5,58 +5,125 @@
 
 {% block body %}
 
-	<section class="container">
-		<h1 class="text-center my-5">Le Bon Coin Du Pauvre
+	<section class=" container mx-auto">
+		<h1 class="text-center text-lg">Le Bon Coin Du Pauvre
 			<br>
-			<span class="fs-5">(En attente du Header )</span>
+			<span class="text-xs">(En attente du Header )</span>
 		</h1>
+
+		{# Barre de recherche #}
+
+		<div class='max-w-md mx-auto my-5'>
+			<div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border-solid border">
+				<div class="grid place-items-center h-full w-12 text-gray-300">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+					</svg>
+				</div>
+
+				<input class="peer h-full w-full outline-none text-sm text-gray-700 pr-2 " type="text" id="search" placeholder="Rechercher"/>
+			</div>
+		</div>
+
 
 		<h2>Top tags :</h2>
 		{# Future boucle tag des 4 tags les plus réccurants #}
+		{# <pre> {{ dump(PopularTags) }} </pre> #}
 
-		<pre>
-			{{ dump(PopularTags) }}
-		</pre>
+		<div class="justify-content-center flex align-items-center my-3">
 
-		<div class=" d-flex justify-content-center align-items-center row my-3">
-
-			<div class="text-center col-md-3 border shadow rounded fs-1 text-uppercase ">
+			<div class="text-center lg:w-1/4 mx-20 sm:w-full  border shadow rounded fs-1 uppercase ">
 				<a href="#">#futur-nom-du-tag</a>
 			</div>
-			<div class="text-center col-md-3 border shadow rounded fs-1 text-uppercase ">
+			<div class="text-center lg:w-1/4 mx-20 sm:w-full border shadow rounded fs-1 uppercase ">
 				<a href="#">#futur-nom-du-tag</a>
 			</div>
-			<div class="text-center col-md-3 border shadow rounded fs-1 text-uppercase ">
+			<div class="text-center lg:w-1/4 mx-20 sm:w-full border shadow rounded fs-1 uppercase ">
 
 				<a href="#">#futur-nom-du-tag</a>
 			</div>
-			<div class="text-center col-md-3 border shadow rounded  fs-1 text-uppercase ">
+			<div class="text-center lg:w-1/4 mx-20 sm:w-full border shadow rounded  fs-1 uppercase ">
 
 				<a href="#">#futur-nom-du-tag</a>
 			</div>
 		</div>
 
 
-		<h2 class="mt-5">Dernières annonces :</h2>
+		<h2 class="my-10">Dernières annonces :</h2>
 		{# Future boucle des 6 dernières annonces  #}
 
-		<div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
-			<div class="row ">
-				<div class="col-lg-3 col-md-6 col-12">
-					<div class="card h-100 shadow-sm">
-						<img src="https://www.freepnglogos.com/uploads/notebook-png/download-laptop-notebook-png-image-png-image-pngimg-2.png" class="card-img-top" alt="Nom de l'objet">
-						<div class="card-body">
-							<div class="clearfix mb-3">
-								<span class="float-start badge rounded-pill bg-primary">Nom du vendeur</span>
-								<span class="float-end price-hp">Prix&euro;</span>
-							</div>
-							<h5 class="card-title">Nom de l'objet</h5>
-							<div class="text-center my-4">
-								<a href="#" class="btn btn-warning">Voir l'annonce</a>
-							</div>
+		<div class="min-h-screen flex justify-center items-center ">
+			<div class="container flex justify-center flex-wrap	">
+				<div class="max-w-sm pb-32 lg:w-1/3 md:w-1/2 sm:w-full mx-3">
+					<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
+						<img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="titre de l'annonce"/>
+						<div class="py-6 px-8 rounded-lg bg-white">
+							<h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Titre de l'annonce</h1>
+							<p class="text-gray-700 tracking-wide">Description</p>
+							<button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonce</button>
+						</div>
+						<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
+							<span class="text-md">Prix &euro;</span>
 						</div>
 					</div>
 				</div>
+
+				<div class="max-w-sm pb-32 lg:w-1/3 md:w-1/2 sm:w-full mx-3">
+					<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
+						<img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="titre de l'annonce"/>
+						<div class="py-6 px-8 rounded-lg bg-white">
+							<h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Titre de l'annonce</h1>
+							<p class="text-gray-700 tracking-wide">Description</p>
+							<button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonce</button>
+						</div>
+						<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
+							<span class="text-md">Prix &euro;</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="max-w-sm pb-32 lg:w-1/3 md:w-1/2 sm:w-full mx-3">
+					<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
+						<img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="titre de l'annonce"/>
+						<div class="py-6 px-8 rounded-lg bg-white">
+							<h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Titre de l'annonce</h1>
+							<p class="text-gray-700 tracking-wide">Description</p>
+							<button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonce</button>
+						</div>
+						<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
+							<span class="text-md">Prix &euro;</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="max-w-sm pb-32 lg:w-1/3 md:w-1/2 sm:w-full mx-3">
+					<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
+						<img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="titre de l'annonce"/>
+						<div class="py-6 px-8 rounded-lg bg-white">
+							<h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Titre de l'annonce</h1>
+							<p class="text-gray-700 tracking-wide">Description</p>
+							<button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonce</button>
+						</div>
+						<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
+							<span class="text-md">Prix &euro;</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="max-w-sm pb-32 lg:w-1/3 md:w-1/2 sm:w-full mx-3">
+					<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
+						<img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="titre de l'annonce"/>
+						<div class="py-6 px-8 rounded-lg bg-white">
+							<h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">Titre de l'annonce</h1>
+							<p class="text-gray-700 tracking-wide">Description</p>
+							<button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonce</button>
+						</div>
+						<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
+							<span class="text-md">Prix &euro;</span>
+						</div>
+					</div>
+				</div>
+
 
 			</div>
 		</div>
