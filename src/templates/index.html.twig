@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Bon Coin Du Pauvre | Accueil
+{% endblock %}
+
+{% block body %}
+
+	<section class="container">
+		<h1 class="text-center my-5">Le Bon Coin Du Pauvre
+			<br>
+			<span class="fs-5">(En attente du Header )</span>
+		</h1>
+
+		<h2>Top tags :</h2>
+		{# Future boucle tag des 4 tags les plus réccurants #}
+
+		<pre>
+			{{ dump(PopularTags) }}
+		</pre>
+
+		<div class=" d-flex justify-content-center align-items-center row my-3">
+
+			<div class="text-center col-md-3 border shadow rounded fs-1 text-uppercase ">
+				<a href="#">#futur-nom-du-tag</a>
+			</div>
+			<div class="text-center col-md-3 border shadow rounded fs-1 text-uppercase ">
+				<a href="#">#futur-nom-du-tag</a>
+			</div>
+			<div class="text-center col-md-3 border shadow rounded fs-1 text-uppercase ">
+
+				<a href="#">#futur-nom-du-tag</a>
+			</div>
+			<div class="text-center col-md-3 border shadow rounded  fs-1 text-uppercase ">
+
+				<a href="#">#futur-nom-du-tag</a>
+			</div>
+		</div>
+
+
+		<h2 class="mt-5">Dernières annonces :</h2>
+		{# Future boucle des 6 dernières annonces  #}
+
+		<div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+			<div class="row ">
+				<div class="col-lg-3 col-md-6 col-12">
+					<div class="card h-100 shadow-sm">
+						<img src="https://www.freepnglogos.com/uploads/notebook-png/download-laptop-notebook-png-image-png-image-pngimg-2.png" class="card-img-top" alt="Nom de l'objet">
+						<div class="card-body">
+							<div class="clearfix mb-3">
+								<span class="float-start badge rounded-pill bg-primary">Nom du vendeur</span>
+								<span class="float-end price-hp">Prix&euro;</span>
+							</div>
+							<h5 class="card-title">Nom de l'objet</h5>
+							<div class="text-center my-4">
+								<a href="#" class="btn btn-warning">Voir l'annonce</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</section>
+{% endblock %}
