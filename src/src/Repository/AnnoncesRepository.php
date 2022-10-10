@@ -14,15 +14,12 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Annonces[]    findAll()
  * @method Annonces[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AnnoncesRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class AnnoncesRepository extends ServiceEntityRepository {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Annonces::class);
     }
 
-    public function save(Annonces $entity, bool $flush = false): void
-    {
+    public function save(Annonces $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
@@ -30,13 +27,8 @@ class AnnoncesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Annonces $entity, bool $flush = false): void
-    {
+    public function remove(Annonces $entity, ): void {
         $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
     }
 
     /**
