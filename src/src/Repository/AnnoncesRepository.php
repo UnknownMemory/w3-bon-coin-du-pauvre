@@ -33,6 +33,7 @@ class AnnoncesRepository extends ServiceEntityRepository
     public function remove(Annonces $entity,): void
     {
         $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
     }
 
     /**
