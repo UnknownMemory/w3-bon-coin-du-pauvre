@@ -9,25 +9,28 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/annonces')]
-class AnnoncesController extends AbstractController {
+class AnnoncesController extends AbstractController
+{
 
     #[Route('/', name: 'app_all')]
-    public function index(AnnoncesRepository $annoncesRepository ): Response {
+    public function index(AnnoncesRepository $annoncesRepository): Response
+    {
         return $this->render('annonces/index.html.twig', [
-           'allAnnonces' => $annoncesRepository->findAll(),
+            'allAnnonces' => $annoncesRepository->findAll(),
         ]);
     }
 
     #[Route('/creation', name: 'app_creation')]
-    public function creationAnnonces(AnnoncesRepository $annoncesRepository): Response {
-       return $this->render('annonces/creationAnnonce.html.twig');
+    public function creationAnnonces(AnnoncesRepository $annoncesRepository): Response
+    {
+        return $this->render('annonces/creationAnnonce.html.twig');
     }
 
-    #[Route('/delete', name: 'app_delete')]
-    public function deleteAnnonces(AnnoncesRepository $annoncesRepository, Annonces $annonces ): Response {
-        return $this->redirect('annonces/index.html.twig', [
-                'deleteAnnonces'=> $annoncesRepository->remove($annonces),
-        ]);
+    #[Route('/delete/{annonce_id}', name: 'app_delete')]
+    public function deleteAnnonces(AnnoncesRepository $annoncesRepository, int $annonce_id): Response
+    {
+        $annonce = $annoncesRepository->find($annonce_id);
+        $annoncesRepository->remove($annonce);
+        return $this->redirectToRoute('app_accueil');
     }
-
 }
