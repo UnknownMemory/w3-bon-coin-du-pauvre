@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création Annonce{% endblock %}
+
+{% block body %}
+    <h1>Créez votre propre annonces</h1>
+
+    <div class="w-full max-w-xs">
+        <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-6">
+                {{ form_start(creationAnnonce) }}
+                    <label class="text-gray-700 text-sm font-bold mb-2">Titre
+                        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Titre" {{ form_widget(creationAnnonce.titre) }}
+                    </label>
+                    <label class="text-gray-700 text-sm font-bold mb-2">Description
+                        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Description" {{ form_widget(creationAnnonce.description) }}
+                    </label>
+                    <label class="text-gray-700 text-sm font-bold mb-2">Prix
+                        <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Prix"{{ form_widget(creationAnnonce.prix) }}
+                    </label>
+                    <label class="text-gray-700 text-sm font-bold mb-2">Image
+                        <input type="text" name="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Lien URL Image">
+                    </label>
+                    <button type="submit" class="bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Valider</button>
+                {{ form_end(creationAnnonce) }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

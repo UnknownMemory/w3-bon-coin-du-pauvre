@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonces;
+use App\Form\CreationAnnonceType;
 use App\Repository\AnnoncesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +19,12 @@ class AnnoncesController extends AbstractController {
         ]);
     }
 
-    #[Route('/creation', name: 'app_creation')]
+    #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
     public function creationAnnonces(AnnoncesRepository $annoncesRepository): Response {
-       return $this->render('annonces/creationAnnonce.html.twig');
+        $form = $this->createForm(CreationAnnonceType::class);
+       return $this->render('annonces/creationAnnonce.html.twig', [
+           'creationAnnonce' => $form->createView(),
+       ]);
     }
 
     #[Route('/delete', name: 'app_delete')]
