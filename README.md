@@ -10,7 +10,7 @@ docker compose up -d
 Installation des dépendences et de la DB
 
 ```console
-docker exec -it <id_du_conteneur> bash
+docker exec -it <id_du_conteneur_symfony> bash
 cd html
 composer i
 symfony console d:d:c
