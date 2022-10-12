@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Annonces;
-use App\Form\CreationAnnonceType;
 use App\Repository\AnnoncesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,11 +26,12 @@ class AnnoncesController extends AbstractController {
        ]);
     }
 
-    #[Route('/delete', name: 'app_delete')]
-    public function deleteAnnonces(AnnoncesRepository $annoncesRepository, Annonces $annonces ): Response {
-        return $this->redirect('annonces/index.html.twig', [
-                'deleteAnnonces'=> $annoncesRepository->remove($annonces),
-        ]);
+    #[Route('/delete/{annonce_id}', name: 'app_delete')]
+    public function deleteAnnonces(AnnoncesRepository $annoncesRepository, int $annonce_id): Response
+    {
+        $annonce = $annoncesRepository->find($annonce_id);
+        $annoncesRepository->remove($annonce);
+        return $this->redirectToRoute('app_accueil');
     }
 
 }
