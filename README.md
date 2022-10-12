@@ -14,5 +14,5 @@ docker exec -it <id_du_conteneur_symfony> bash
 cd html
 composer i
 symfony console d:d:c
-symfony console d:d:m
+symfony console d:m:m
 ```
