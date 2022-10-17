@@ -16,9 +16,9 @@ class Images
     #[ORM\Column(length: 255)]
     private ?string $lien = null;
 
-    #[ORM\ManyToOne(inversedBy: 'idImages')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Annonces $idAnnonces = null;
+
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Annonce $annonce = null;
 
     public function getId(): ?int
     {
@@ -37,14 +37,15 @@ class Images
         return $this;
     }
 
-    public function getIdAnnonces(): ?Annonces
+
+    public function getAnnonce(): ?Annonce
     {
-        return $this->idAnnonces;
+        return $this->annonce;
     }
 
-    public function setIdAnnonces(?Annonces $idAnnonces): self
+    public function setAnnonce(?Annonce $annonce): self
     {
-        $this->idAnnonces = $idAnnonces;
+        $this->annonce = $annonce;
 
         return $this;
     }
