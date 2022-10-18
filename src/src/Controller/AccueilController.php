@@ -37,7 +37,7 @@ class AccueilController extends AbstractController
     /* A METTRE DANS LE CONTROLLER DES TAGS UNE FOIS CELUI-CI RECUPERER | ET SERA À MODIFIER !!! */
 
     #[Route('/tags/{nom}', name: 'app_annonces_tags')]
-    public function annoncesTags(Tag $tag, TagRepository $tagsRepository, $nom): Response
+    public function annoncesTags(Tag $tag): Response
     {
 
         /*         dd($tag->getAnnonces()); */
@@ -46,7 +46,7 @@ class AccueilController extends AbstractController
         } */
 
         return $this->render('tags/index.html.twig', [
-            'annonces' => $tag->getAnnonces(),
+            'annoncesTags' => $tag->getAnnonces(),
         ]);
     }
 }
