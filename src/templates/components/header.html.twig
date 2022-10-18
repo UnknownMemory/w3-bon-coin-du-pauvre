@@ -21,13 +21,21 @@
 					<a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Pricing</a>
 				</div>
 			</div>
+			{% if app.user %}
 
-			<!-- secondary nav -->
-			<div class="hidden md:flex items-center space-x-1">
-				<a href="" class="py-5 px-3">Connexion</a>
-				<a href="" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Inscription</a>
-			</div>
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Profil</a>
+					<a href="{{path('app_logout')}}" class="py-5 px-3">Déconnexion</a>
+				</div>
+			{% else %}
 
+
+				<!-- secondary nav -->
+				<div class="hidden md:flex items-center space-x-1">
+					<a href="{{path('app_login')}}" class="py-5 px-3">Connexion</a>
+					<a href="{{path('app_register')}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Inscription</a>
+				</div>
+			{% endif %}
 			<!-- mobile button goes here -->
 			<div class="md:hidden flex items-center">
 				<button class="mobile-menu-button">
