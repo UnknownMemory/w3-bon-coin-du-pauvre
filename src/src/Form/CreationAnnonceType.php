@@ -15,11 +15,9 @@ class CreationAnnonceType extends AbstractType
     {
 
         $builder
-            ->add('')
             ->add('titre')
             ->add('description')
             ->add('prix')
-            ->add('date',DateType::class, ['empty_data' => getdate()] )
             //->add('idTags')
         ;
     }

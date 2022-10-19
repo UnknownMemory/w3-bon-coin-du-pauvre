@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Images;
+use App\Entity\Tag;
 use App\Form\CreationAnnonceType;
 use App\Repository\AnnonceRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Exception\DatabaseDoesNotExist;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,22 +21,31 @@ class AnnoncesController extends AbstractController {
     #[Route('/', name: 'app_all')]
     public function index(AnnonceRepository $annoncesRepository ): Response {
         return $this->render('annonces/index.html.twig', [
-           'allAnnonces' => $annoncesRepository->findAll(),
+            'allAnnonces' => $annoncesRepository->findAll(),
         ]);
     }
 
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
     public function creationAnnonces(AnnonceRepository $annonceRepository, EntityManagerInterface $em, Request $request): Response {
-        $annonce = new Annonce();
-        $form = $this->createForm(CreationAnnonceType::class, $annonce);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($annonce);
-            $annonceRepository->save($annonce);
+        if ($this->getUser()) {
+            $slugify = new Slugify();
+            $annonce = new Annonce();
+            $form = $this->createForm(CreationAnnonceType::class, $annonce);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $annonce->setVendeur($this->getUser());
+                $annonce->setDate(new \DateTime());
+                $slug = $slugify->slugify($annonce->getTitre());
+                $annonce->setSlug($slug);
+                $annonceRepository->save($annonce, true);
+            }
+            return $this->render('annonces/creationAnnonce.html.twig', [
+                'creationAnnonce' => $form->createView(),
+            ]);
+        } else {
+            return $this->redirectToRoute('app_all');
         }
-        return $this->render('annonces/creationAnnonce.html.twig', [
-            'creationAnnonce' => $form->createView(),
-        ]);
+
     }
 
     #[Route('/delete/{annonce_id}', name: 'app_delete')]
@@ -42,5 +54,7 @@ class AnnoncesController extends AbstractController {
         $annoncesRepository->remove($annonce);
         return $this->redirectToRoute('app_accueil');
     }
+
+
 
 }
