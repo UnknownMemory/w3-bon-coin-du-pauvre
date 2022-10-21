@@ -14,8 +14,12 @@ class ProfilController extends AbstractController
     {
 
         return $this->render('profil/index.html.twig', [
+            /* Récupere les annonces de l'utilisateur */
             'myAnnonces' => $user->getAnnonces(),
-            'information' => $user
+            /* Récupere les informations de l'utilisateur */
+            'information' => $user,
+            /* Récupere les commentaires de l'utilisateur */
+            'lastCommentaires' => $user->getIdCommentaires()
         ]);
     }
 }
