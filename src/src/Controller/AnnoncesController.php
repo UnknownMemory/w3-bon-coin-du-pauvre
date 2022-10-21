@@ -26,16 +26,19 @@ class AnnoncesController extends AbstractController {
     }
 
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
-    public function creationAnnonces(AnnonceRepository $annonceRepository, EntityManagerInterface $em, Request $request): Response {
+    public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request): Response {
         if ($this->getUser()) {
             $slugify = new Slugify();
+            $min = 1;
+            $max = 99999;
+            $genrateInt = rand($min, $max);
             $annonce = new Annonce();
             $form = $this->createForm(CreationAnnonceType::class, $annonce);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $annonce->setVendeur($this->getUser());
                 $annonce->setDate(new \DateTime());
-                $slug = $slugify->slugify($annonce->getTitre());
+                $slug = $slugify->slugify($annonce->getTitre() . '-'. $genrateInt);
                 $annonce->setSlug($slug);
                 $annonceRepository->save($annonce, true);
             }
@@ -45,7 +48,6 @@ class AnnoncesController extends AbstractController {
         } else {
             return $this->redirectToRoute('app_all');
         }
-
     }
 
     #[Route('/delete/{annonce_id}', name: 'app_delete')]
@@ -55,6 +57,10 @@ class AnnoncesController extends AbstractController {
         return $this->redirectToRoute('app_accueil');
     }
 
-
-
+    #[Route('/{slug}', name: 'app_oneannonce')]
+    public function oneAnnonces(Annonce $annonce) {
+        return $this->render('annonces/oneAnnonce.html.twig', [
+            'oneAnnonce' => $annonce
+        ]);
+    }
 }

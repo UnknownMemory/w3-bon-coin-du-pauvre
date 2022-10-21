@@ -42,8 +42,6 @@ class Commentaires
         return $this;
     }
 
-
-
     public function getIdUser(): ?User
     {
         return $this->idUser;
