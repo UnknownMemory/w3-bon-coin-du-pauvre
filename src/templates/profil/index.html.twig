@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+Profil de {{information.prenom}}
+{% endblock %}
+
+{% block body %}
+
+{% for annonces in myAnnonces %}
+{{annonces.titre}}
+    
+{% endfor %}
+
+{% endblock %}
