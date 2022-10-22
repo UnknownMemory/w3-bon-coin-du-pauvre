@@ -44,7 +44,7 @@ class AnnoncesController extends AbstractController
                 $annonce->setDate(new \DateTime());
                 $slug = $slugify->slugify($annonce->getTitre());
                 $annonce->setSlug($slug);
-                $this->annonceRepository->save($annonce, true);
+                $this->annoncesRepository->save($annonce, true);
             }
             return $this->render('annonces/creationAnnonce.html.twig', [
                 'creationAnnonce' => $form->createView(),
