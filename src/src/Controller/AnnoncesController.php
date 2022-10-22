@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Commentaires;
 use App\Entity\Images;
 use App\Entity\Tag;
+use App\Form\CommentaireType;
 use App\Form\CreationAnnonceType;
 use App\Repository\AnnonceRepository;
 use Cocur\Slugify\Slugify;
@@ -58,9 +60,17 @@ class AnnoncesController extends AbstractController {
     }
 
     #[Route('/{slug}', name: 'app_oneannonce')]
-    public function oneAnnonces(Annonce $annonce) {
+    public function oneAnnonces(Annonce $annonce, Commentaires $commentaires, Request $request) {
+        $comment = new Commentaires();
+        $comment->setIdUser($this->getUser());
+        $comment->setAnnonce($annonce);
+        $formCommentaire = $this->createForm(CommentaireType::class, $comment);
+        $formCommentaire->handleRequest($request);
+        dd($formCommentaire);
         return $this->render('annonces/oneAnnonce.html.twig', [
-            'oneAnnonce' => $annonce
+            'oneAnnonce' => $annonce,
+            "formCommentaire" => $formCommentaire->createView()
         ]);
     }
+
 }
