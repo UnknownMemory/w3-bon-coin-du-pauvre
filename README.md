@@ -1,4 +1,5 @@
-# w3-bon-coin-du-pauvre
+# Le Bon Coin Du Pauvre
+
 ## Lancer le projet
 
 Démarrage des conteneurs
