@@ -25,6 +25,9 @@ class Commentaires
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?Annonce $annonce = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $datePublication = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +65,18 @@ class Commentaires
     public function setAnnonce(?Annonce $annonce): self
     {
         $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    public function getDatePublication(): ?\DateTimeInterface
+    {
+        return $this->datePublication;
+    }
+
+    public function setDatePublication(\DateTimeInterface $datePublication): self
+    {
+        $this->datePublication = $datePublication;
 
         return $this;
     }

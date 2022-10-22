@@ -9,6 +9,7 @@ use App\Entity\Tag;
 use App\Form\CommentaireType;
 use App\Form\CreationAnnonceType;
 use App\Repository\AnnonceRepository;
+use App\Repository\CommentairesRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Exception\DatabaseDoesNotExist;
 use Doctrine\ORM\EntityManagerInterface;
@@ -60,13 +61,17 @@ class AnnoncesController extends AbstractController {
     }
 
     #[Route('/{slug}', name: 'app_oneannonce')]
-    public function oneAnnonces(Annonce $annonce, Commentaires $commentaires, Request $request) {
+    public function oneAnnonces(Annonce $annonce, Request $request, CommentairesRepository $commentairesRepository) {
         $comment = new Commentaires();
-        $comment->setIdUser($this->getUser());
-        $comment->setAnnonce($annonce);
         $formCommentaire = $this->createForm(CommentaireType::class, $comment);
         $formCommentaire->handleRequest($request);
-        dd($formCommentaire);
+        if($formCommentaire->isSubmitted() && $formCommentaire->isValid()){
+            $comment->setIdUser($this->getUser());
+            $comment->setAnnonce($annonce);
+            $comment->setDatePublication(new \DateTime());
+            $commentairesRepository->save($comment, true);
+
+        }
         return $this->render('annonces/oneAnnonce.html.twig', [
             'oneAnnonce' => $annonce,
             "formCommentaire" => $formCommentaire->createView()

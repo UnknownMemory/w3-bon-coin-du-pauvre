@@ -116,6 +116,14 @@
     <br>
     <br>
 
-     {{ dump(formCommentaire) }}
+    {% for commentaire in oneAnnonce.commentaires %}
+        {{ commentaire.idUser.nom }}
+        {{ commentaire.idUser.prenom }}
+        {{ commentaire.message   }}
+
+    {% endfor %}
+    <br>
+    <br>
+     {{ form(formCommentaire) }}
 
 {% endblock %}
