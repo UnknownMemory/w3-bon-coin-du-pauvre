@@ -4,11 +4,15 @@
         <div class="py-6 px-8 rounded-lg bg-white">
             <h2 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">{{annonce.titre}}</h2>
             <p class="text-gray-700 tracking-wide">{{annonce.description | raw}}</p>
-            <button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonces</button>
+            <div class="mt-6 flex items-center justify-between">
+                <button class="py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonces</button>
+                {% if app.user and app.user.id == annonce.vendeur.id %}
+                    <button class="py-2 px-4 bg-red-500 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Supprimer</button>
+                {% endif %}
+            </div>
         </div>
         <div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
-            <span class="text-md">{{annonce.prix}}
-                &euro;</span>
+            <span class="text-md">{{annonce.prix}}&euro;</span>
         </div>
     </div>
 </div>

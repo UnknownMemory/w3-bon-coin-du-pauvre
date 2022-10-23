@@ -70,7 +70,7 @@
 
 				<div class="container flex justify-center flex-wrap	">
 					{% for annonce in annonces %}
-						{{ include('components/_annonce_card.html.twig', {annonce: annonce}) }}
+						{{ include('components/_annonce.html.twig', {annonce: annonce}) }}
 					{% endfor %}
 				</div>
 			</div>
@@ -85,7 +85,7 @@
 
 			<div class="container flex justify-center flex-wrap	">
 				{% for lastAnnonces in lastAnnonces %}
-					{{ include('components/_annonce_card.html.twig', {annonce: lastAnnonces}) }}
+					{{ include('components/_annonce.html.twig', {annonce: lastAnnonces}) }}
 				{% endfor %}
 			</div>
 		</div>
