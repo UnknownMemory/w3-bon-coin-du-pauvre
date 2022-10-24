@@ -5,7 +5,6 @@
             <h2 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">{{annonce.titre}}</h2>
             <p class="text-gray-700 tracking-wide">{{annonce.description | raw}}</p>
             <div class="mt-6 flex items-center justify-between">
-                <button class="py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonces</button>
                 {% if app.user and app.user.id == annonce.vendeur.id %}
                     <button class="py-2 px-4 bg-red-500 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Supprimer</button>
                 {% endif %}
