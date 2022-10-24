@@ -1,42 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block head %}
+	<a href="https://front.codes/" class="logo" target="_blank">
+	<img src="https://assets.codepen.io/1462889/fcy.png" alt=""></a>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/login_style.css') }}">
+{% endblock %}
+
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 <form method="post">
-    {% if error %}
+    <div class="section">
+     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+     {% endif %}
 
-    {% if app.user %}
+     {% if app.user %}
         <div class="mb-3">
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-8">Connexion</h4>
+											<div class="form-group">
+												<input type="email"  value="{{last_username }}" name="email" class="form-style" placeholder="Votre Email" id="inputEmail" autocomplete="email" required autofocus>
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div class="form-group mt-2">
+												<input type="password" name="password" class="form-style mt-4" placeholder=" Votre mot de passe" id="logpass" autocomplete="current-password" required>
+												<i class="input-icon uil uil-lock-alt"></i>
+                                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+											</div>
+                                            <button type="submit"><a class="btn mt-8">C'est parti !</a></button>
+				      					</div>
+			      					</div>
+			      				</div>
+			      			</div>
+			      		</div>
+			      	</div>
+		      	</div>
+	      	</div>
+	    </div>
+	</div>
+</form/>
 {% endblock %}
