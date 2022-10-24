@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     #[ORM\OneToOne(inversedBy: 'idUser', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Votes $idVotes = null;
 
     #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Commentaires::class, orphanRemoval: true)]

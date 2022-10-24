@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AnnoncesController!{% endblock %}
+
+{% block body %}
+    {% for annonces in allAnnonces %}
+        {{ annonces.titre }}
+        {{ annonces.description }}
+    {% endfor %}
+{% endblock %}
