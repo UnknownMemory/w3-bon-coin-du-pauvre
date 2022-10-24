@@ -54,6 +54,12 @@ class AnnoncesController extends AbstractController
         }
     }
 
+    #[Route('/modification/{annonce_id}', name:'app_modify', method:["GET", "POST"])]
+    public function modificationAnnonces(int $annonce_id): Response
+    {
+        return;
+    }
+
     #[Route('/delete/{annonce_id}', name: 'app_delete')]
     public function deleteAnnonces(int $annonce_id): Response
     {
