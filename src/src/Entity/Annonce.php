@@ -31,8 +31,6 @@ class Annonce
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\OneToMany(mappedBy: 'annonce', targetEntity: Images::class)]
-    private Collection $images;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     #[ORM\JoinColumn(nullable: false)]
@@ -44,9 +42,11 @@ class Annonce
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'annonces')]
     private Collection $tags;
 
+    #[ORM\Column(type: Types::ARRAY)]
+    private array $images = [];
+
     public function __construct()
     {
-        $this->images = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
@@ -116,35 +116,8 @@ class Annonce
         return $this;
     }
 
-    /**
-     * @return Collection<int, Images>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
 
-    public function addImage(Images $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setAnnonce($this);
-        }
 
-        return $this;
-    }
-
-    public function removeImage(Images $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getAnnonce() === $this) {
-                $image->setAnnonce(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getVendeur(): ?User
     {
@@ -208,6 +181,18 @@ class Annonce
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getImages(): array
+    {
+        return $this->images;
+    }
+
+    public function setImages(array $images): self
+    {
+        $this->images = $images;
 
         return $this;
     }
