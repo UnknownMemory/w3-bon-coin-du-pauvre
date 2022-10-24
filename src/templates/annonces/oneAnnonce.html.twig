@@ -119,11 +119,11 @@
     {% for commentaire in oneAnnonce.commentaires %}
         {{ commentaire.idUser.nom }}
         {{ commentaire.idUser.prenom }}
-        {{ commentaire.message   }}
-
+        {{ commentaire.message }}
     {% endfor %}
-    <br>
-    <br>
-     {{ form(formCommentaire) }}
+
+    {{ render(controller(
+        'App\\Controller\\CommentairesController::commentaireInAnnonce', {annonce: oneAnnonce}
+    )) }}
 
 {% endblock %}
