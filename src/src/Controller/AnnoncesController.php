@@ -54,10 +54,28 @@ class AnnoncesController extends AbstractController
         }
     }
 
-    #[Route('/modification/{annonce_id}', name:'app_modify', method:["GET", "POST"])]
-    public function modificationAnnonces(int $annonce_id): Response
+    #[Route('/modification/{annonce_id}', name:'app_modify', methods:["GET", "POST"])]
+    public function modificationAnnonces(Request $request, int $annonce_id): Response
     {
-        return;
+        if($this->security->getuser()){
+            $annonce = $this->annoncesRepository->find($annonce_id);
+            $form = $this->createForm(CreationAnnonceType::class, $annonce);
+
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $annonce->setTitre($form->get('titre')->getData());
+                $annonce->setDescription($form->get('description')->getData());
+                $this->annoncesRepository->save($annonce, true);
+
+                return $this->redirectToRoute('app_accueil');
+            }
+    
+            return $this->renderForm('annonces/modification.html.twig', [
+                'annonceForm' => $form,
+            ]);
+        }
+
     }
 
     #[Route('/delete/{annonce_id}', name: 'app_delete')]
@@ -67,7 +85,7 @@ class AnnoncesController extends AbstractController
         $annonce = $this->annoncesRepository->find($annonce_id);
         if ($userID && $userID == $annonce->getVendeur()->getId()) {
             $this->annoncesRepository->remove($annonce, true);
-            return $this->redirectToRoute('app_accueil');
+            return $this->redirectToRoute('app_acceuil');
         }
     }
 }
