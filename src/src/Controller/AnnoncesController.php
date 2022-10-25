@@ -85,7 +85,7 @@ class AnnoncesController extends AbstractController
         $annonce = $this->annoncesRepository->find($annonce_id);
         if ($userID && $userID == $annonce->getVendeur()->getId()) {
             $this->annoncesRepository->remove($annonce, true);
-            return $this->redirectToRoute('app_acceuil');
+            return $this->redirectToRoute('app_accueil');
         }
     }
 }
