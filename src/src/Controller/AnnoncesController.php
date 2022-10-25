@@ -83,20 +83,10 @@ class AnnoncesController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_oneannonce')]
-    public function oneAnnonces(Annonce $annonce, Request $request, CommentairesRepository $commentairesRepository)
+    public function oneAnnonces(Annonce $annonce): Response
     {
-        $comment = new Commentaires();
-        $formCommentaire = $this->createForm(CommentaireType::class, $comment);
-        $formCommentaire->handleRequest($request);
-        if ($formCommentaire->isSubmitted() && $formCommentaire->isValid()) {
-            $comment->setIdUser($this->getUser());
-            $comment->setAnnonce($annonce);
-            $comment->setDatePublication(new \DateTime());
-            $commentairesRepository->save($comment, true);
-        }
         return $this->render('annonces/oneAnnonce.html.twig', [
-            'oneAnnonce' => $annonce,
-            "formCommentaire" => $formCommentaire->createView()
+            'oneAnnonce' => $annonce
         ]);
     }
 }
