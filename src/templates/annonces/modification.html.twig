@@ -3,33 +3,25 @@
 {% block title %}Modifier{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">Modifier l'annonce</h1>
-
-    <div class="">
-            <div class="content-center" >
-                {{ form_start(annonceForm) }}
-                <div class="mb-4">
-                    <label class="text-gray-700 text-sm font-bold">Titre
-                       {{ form_widget(annonceForm.titre) }}
-                    </label>
-                </div>
-                <div class="mb-4">
-                    <label class="text-gray-700 text-sm font-bold">Description
-                         {{ form_widget(annonceForm.description) }}
-                    </label>
-                </div>
-                <div class="mb-4">
-                    <label class="text-gray-700 text-sm font-bold">Prix
-                        {{ form_widget(annonceForm.prix) }}
-                    </label>
-                </div>
-                <div class="mb-4">
-                    <label class="text-gray-700 text-sm font-bold">Image
-                    </label>
-                </div>
-                    <button type="submit" class="mt-8 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Modifier</button>
-                {{ form_end(annonceForm) }}
-            </div>
-    </div>
+    <h1 class="text-center my-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900">Modifier l'annonce</h1>
+    <div class="modif-form w-full flex justify-center">
+        {{ form_start(annonceForm) }}
+        <div class="form-control mb-4">
+            <label class="text-gray-700 text-md font-bold">Titre</label>
+            {{ form_widget(annonceForm.titre) }}
+        </div>
+        <div class="form-control mb-4">
+            <label class="text-gray-700 text-md font-bold">Description</label>
+            {{ form_widget(annonceForm.description) }}
+        </div>
+        <div class="form-control mb-4">
+            <label class="text-gray-700 text-md font-bold">Prix</label>
+            {{ form_widget(annonceForm.prix) }}
+        </div>
+        <div class="form-control mb-4">
+            <label class="text-gray-700 text-md font-bold">Image</label>
+        </div>
+            <button type="submit" class="mt-8 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Modifier</button>
+        {{ form_end(annonceForm) }}
     </div>
 {% endblock %}
