@@ -4,10 +4,14 @@ namespace App\Form;
 
 use App\Entity\Annonce;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Validator\Constraints\Form;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Validator\Constraints\Form;
 
 class CreationAnnonceType extends AbstractType
 {
@@ -15,11 +19,27 @@ class CreationAnnonceType extends AbstractType
     {
 
         $builder
-            ->add('titre')
-            ->add('description')
-            ->add('prix')
-            //->add('idTags')
-        ;
+            ->add('titre', TextType::class)
+            ->add('description', TextType::class)
+            ->add('prix', MoneyType::class)
+            ->add('images', FileType::class, [
+                'mapped' => false,
+                'multiple' => true,
+
+                /*  'constraints' => [
+                    new File([
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Merci d\'uploader une image valide',
+                    ])
+                ], */
+
+            ]);
+        //->add('idTags')
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
