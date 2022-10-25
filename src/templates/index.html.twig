@@ -4,130 +4,92 @@
 {% endblock %}
 
 {% block body %}
+	{# Barre de recherche #}
+	{{ form_start(SearchForm) }}
 
 
-	<section
-		class=" container mx-auto">
+	<div
+		class="bgc-accueil-search my-16 w-full rounded-md">
 
-
-		{# Barre de recherche #}
-
-		{{ form_start(SearchForm) }}
-
-
-		<div
-			class="bgc-accueil-search my-16 w-full rounded-md">
-
-			{# Backgroud noir - recherche #}
-			<div class="flex justify-center">
-				<div class="bg-bleu-transparent p-6 rounded-md w-1/2 ">
-					<h3 class="text-center text-white text-xl">Rechercher l'article qui vous convient le mieux</h3>
-					<div class='max-w-md mx-auto my-5 z-40 '>
-						<div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border-solid border">
-							<div class="grid place-items-center h-full w-12 text-gray-300">
-								<button type="submit" class="btn">
-									<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-									</svg>
-								</button>
-							</div>
-
-							{{ form_row(SearchForm.search, {
-								'attr': {
-									'class': 'w-full h-full pl-12 pr-4 text-gray-700 placeholder-gray-500 focus:outline-none',
-									'placeholder': 'Rechercher un produit'
-								}
-							}) }}
+		{# Backgroud noir - recherche #}
+		<div class="flex justify-center">
+			<div class="bg-bleu-transparent p-6 rounded-md w-1/2 ">
+				<h3 class="text-center text-white text-xl">Rechercher l'article qui vous convient le mieux</h3>
+				<div class='max-w-md mx-auto my-5 z-40 '>
+					<div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border-solid border">
+						<div class="grid place-items-center h-full w-12 text-gray-300">
+							<button type="submit" class="btn">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+								</svg>
+							</button>
 						</div>
+
+						{{ form_row(SearchForm.search, {
+							'attr': {
+								'class': 'w-full h-full pl-12 pr-4 text-gray-700 placeholder-gray-500 focus:outline-none',
+								'placeholder': 'Rechercher un produit'
+							}
+						}) }}
 					</div>
 				</div>
 			</div>
 		</div>
-		{{ form_end(SearchForm) }}
+	</div>
+	{{ form_end(SearchForm) }}
 
 
-		<h2 class="text-center text-2xl uppercase">Nos Best Tags :</h2>
-		{# Boucle des 4 tags les plus récurrents #}
-		{# <pre> {{ dump(PopularTags) }} </pre> #}
+	<h2 class="text-center text-2xl uppercase">Nos Best Tags :</h2>
+	{# Boucle des 4 tags les plus récurrents #}
+	{# <pre> {{ dump(PopularTags) }} </pre> #}
 
 
-		<div class="justify-content-center flex align-items-center my-3">
-			{% for tags in PopularTags %}
-				<div class="text-center lg:w-1/4 mx-20 sm:w-full  border shadow rounded fs-1 uppercase ">
-					<a href="{{path('app_annonces_tags', {'nom': tags.nom})}}">#{{tags.nom}}</a>
-				</div>
-			{% endfor %}
-		</div>
+	<div class="justify-content-center flex align-items-center my-3">
+		{% for tags in PopularTags %}
+			<div class="text-center lg:w-1/4 mx-20 sm:w-full  border shadow rounded fs-1 uppercase ">
+				<a href="{{path('app_annonces_tags', {'nom': tags.nom})}}">#{{tags.nom}}</a>
+			</div>
+		{% endfor %}
+	</div>
 
 
-		{% if app.request.method == 'POST' %}
-			{% if annonces is empty %}
-				{# Si la recherche ne donne rien donc si annonces est vide #}
-				<div class="text-center">
-					<h2 class="text-2xl">Aucun résultat pour votre recherche</h2>
-				</div>
-			{% else %}
-
-
-				{# Boucle des annonces rechercher #}
-				<h2 class="text-2xl text-center m-16">Résultat de votre recherche :
-				</h2>
-
-				<div class=" flex justify-center items-center ">
-
-					<div class="container flex justify-center flex-wrap	">
-						{% for annonce in annonces %}
-
-							<div class="max-w-sm pb-32 lg:w-1/3 md:w-1/2 sm:w-full mx-3">
-								<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-									<img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="{{annonce.titre}}"/>
-									<div class="py-6 px-8 rounded-lg bg-white">
-										<h2 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">{{annonce.titre}}</h2>
-										<p class="text-gray-700 tracking-wide">{{annonce.description | raw}}</p>
-										<button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonce</button>
-									</div>
-									<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
-										<span class="text-md">{{annonce.prix}}
-											&euro;</span>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-			{% endif %}
-
+	{% if app.request.method == 'POST' %}
+		{% if annonces is empty %}
+			{# Si la recherche ne donne rien donc si annonces est vide #}
+			<div class="text-center">
+				<h2 class="text-2xl">Aucun résultat pour votre recherche</h2>
+			</div>
 		{% else %}
 
-			<h2 class="my-10">Annonces les plus récentes</h2>
-			{# boucle des 6 dernières annonces  #}
+
+			{# Boucle des annonces rechercher #}
+			<h2 class="text-2xl text-center m-16">Résultat de votre recherche :
+			</h2>
 
 			<div class=" flex justify-center items-center ">
 
 				<div class="container flex justify-center flex-wrap	">
-					{% for lastAnnonces in lastAnnonces %}
-
-						<div class="max-w-sm pb-32 lg:w-1/3 md:w-1/2 sm:w-full mx-3">
-							<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-								<img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="{{lastAnnonces.titre}}"/>
-								<div class="py-6 px-8 rounded-lg bg-white">
-									<h2 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">{{lastAnnonces.titre}}</h2>
-									<p class="text-gray-700 tracking-wide">{{lastAnnonces.description | raw}}</p>
-									<button class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300">Voir l'annonces</button>
-								</div>
-								<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
-									<span class="text-md">{{lastAnnonces.prix}}
-										&euro;</span>
-								</div>
-							</div>
-						</div>
+					{% for annonce in annonces %}
+						{{ include('components/_annonce.html.twig', {annonce: annonce}) }}
 					{% endfor %}
 				</div>
 			</div>
-
-
 		{% endif %}
 
+	{% else %}
 
-	</section>
+		<h2 class="my-10">Annonces les plus récentes</h2>
+		{# boucle des 6 dernières annonces  #}
+
+		<div class=" flex justify-center items-center ">
+
+			<div class="container flex justify-center flex-wrap	">
+				{% for lastAnnonces in lastAnnonces %}
+					{{ include('components/_annonce.html.twig', {annonce: lastAnnonces}) }}
+				{% endfor %}
+			</div>
+		</div>
+
+
+	{% endif %}
 {% endblock %}

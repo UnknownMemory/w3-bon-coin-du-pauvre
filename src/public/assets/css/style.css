@@ -23,3 +23,17 @@
 .bg-bleu-transparent {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.modif-form form {
+  width: 50%;
+}
+
+.form-control input {
+  text-align: center;
+}
+
+.form-control input, .form-control textarea {
+  width: 100%;
+  background-color: rgb(237 237 237);
+  height: 60px;
+}
