@@ -12,8 +12,7 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-<form method="post">
-    <div class="section">
+<h2 class="flex justify-center mt-16 uppercase">Connexion</h2>
      {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
      {% endif %}
@@ -23,35 +22,29 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-		<div class="container">
-			<div class="row full-height justify-content-center">
-				<div class="col-12 text-center align-self-center py-5">
-					<div class="section pb-5 pt-5 pt-sm-2 text-center">
-						<div class="card-3d-wrap mx-auto">
-							<div class="card-3d-wrapper">
-								<div class="card-front">
-									<div class="center-wrap">
-										<div class="section text-center">
-											<h4 class="mb-8">Connexion</h4>
-											<div class="form-group">
-												<input type="email"  value="{{last_username }}" name="email" class="form-style" placeholder="Votre Email" id="inputEmail" autocomplete="email" required autofocus>
-												<i class="input-icon uil uil-at"></i>
-											</div>	
-											<div class="form-group mt-2">
-												<input type="password" name="password" class="form-style mt-4" placeholder=" Votre mot de passe" id="logpass" autocomplete="current-password" required>
-												<i class="input-icon uil uil-lock-alt"></i>
-                                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-											</div>
-                                            <button type="submit"><a class="btn mt-8">C'est parti !</a></button>
-				      					</div>
-			      					</div>
-			      				</div>
-			      			</div>
-			      		</div>
-			      	</div>
-		      	</div>
-	      	</div>
-	    </div>
+	<div class="w-full flex justify-center">
+	<form class="w-full max-w-lg mt-9" id="formulaire" method="post">
+  <div class="flex flex-wrap items-center flex-col mx-3 pl-2 pt-3 mb-6">
+    <div class="h-2/4 px-3 mb-6 md:mb-0">
+    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-center" for="inputPassword">
+        Mot de passe
+      </label>
+      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="inputPassword" autocomplete="current-password" type="password" name="mot de passe" required>
+    </div>
+    <div class="w-15 md:w-1/2 px-3">
+     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-center" for="inputEmail">
+        Email
+      </label>
+      <input  value="{{last_username}}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="inputEmail" type="email" name="email" autocomplete="email" required autofocus>
+       <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    </div>
+  </div>
+	<div class="w-full mt-6 mb-4 flex justify-center">
+		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">C'est parti !</button>
 	</div>
+  </div>
+  </div>
 </form>
+</div>
+
 {% endblock %}
