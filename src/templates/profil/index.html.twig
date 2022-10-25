@@ -14,9 +14,11 @@ Profil de {{information.prenom}}
 
 <div>
     <h2 class="text-xl font-semibold mb-4">Annonces</h2>
-    {% for annonce in myAnnonces %}
-        {{ include('components/_annonce.html.twig', {annonce: annonce}) }}
-    {% endfor %}
+    <div class="w-full flex flex-wrap">
+        {% for annonce in myAnnonces %}
+            {{ include('components/_annonce.html.twig', {annonce: annonce}) }}
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
