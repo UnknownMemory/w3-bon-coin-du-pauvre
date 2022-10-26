@@ -4,9 +4,9 @@ namespace App\Form;
 
 use App\Entity\Tag;
 use App\Entity\Annonce;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -50,8 +50,9 @@ class CreationAnnonceType extends AbstractType
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.nom', 'ASC');
                 },
-            ]);
-        //->add('idTags')
+            ])
+        ;
+
 
     }
 
