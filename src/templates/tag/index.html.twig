@@ -1,1 +1,19 @@
-{{ form(formTag) }}
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Le Bon Coin Du Pauvre |
+	{{NameTag}}
+
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="w-full flex flex-wrap">
+		{% for annonce in annonces %}
+			{{ include('components/_annonce.html.twig', {annonce: annonce}) }}
+
+		{% endfor %}
+	</div>
+
+{% endblock %}

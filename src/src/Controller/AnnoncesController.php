@@ -36,6 +36,41 @@ class AnnoncesController extends AbstractController
         ]);
     }
 
+    #[Route('/{slug}', name: 'app_oneannonce')]
+    public function oneAnnonce(Annonce $annonce): Response
+    {
+        return $this->render('annonces/oneAnnonce.html.twig', [
+            'oneAnnonce' => $annonce,
+        ]);
+    }
+
+
+
+    #[Route('/modification/{annonce_id}', name: 'app_modify', methods: ["GET", "POST"])]
+    public function modificationAnnonces(Request $request, int $annonce_id): Response
+    {
+        if ($this->security->getuser()) {
+            $annonce = $this->annoncesRepository->find($annonce_id);
+            $form = $this->createForm(CreationAnnonceType::class, $annonce);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $annonce->setTitre($form->get('titre')->getData());
+                $annonce->setDescription($form->get('description')->getData());
+                $this->annoncesRepository->save($annonce, true);
+
+                return $this->redirectToRoute('app_accueil');
+            }
+
+            return $this->renderForm('annonces/modification.html.twig', [
+                'annonceForm' => $form,
+                'nomAnnonce' => $annonce->getTitre(),
+            ]);
+        }
+    }
+
+
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
     public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request, SlugService $slugService, UploadImageService $upload): Response
     {

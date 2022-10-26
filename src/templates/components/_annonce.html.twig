@@ -1,20 +1,29 @@
 <div class="max-w-sm mb-16 lg:w-[calc(25%_-_1.5rem)] md:w-[calc(50%_-_1.5rem)] sm:w-full md:mr-6">
-    <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-        <img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="{{annonce.titre}}"/>
-        <div class="py-6 px-8 rounded-lg bg-white">
-            <h2 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">{{annonce.titre}}</h2>
-            <p class="text-gray-700 tracking-wide">{{annonce.description | raw}}</p>
-            <div class="mt-6 flex flex-col items-center justify-between">
-                {% if app.user and app.user.id == annonce.vendeur.id %}
-                    <a href="{{path('app_modify', {annonce_id: annonce.id})}}" class="mb-2 inline-flex py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg transition duration-300"><span class="mr-2"><i data-feather="edit"></i></span>Modifier</a>
-                {% endif %}
-                {% if app.user and app.user.id == annonce.vendeur.id %}
-                    <a href="{{path('app_delete', {annonce_id: annonce.id})}}" class="inline-flex py-2 px-4 bg-red-500 text-gray-800 font-bold rounded-lg transition duration-300"><span class="mr-2"><i data-feather="trash"></i></span>Supprimer</a>
-                {% endif %}
-            </div>
-        </div>
-        <div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
-            <span class="text-md">{{annonce.prix}}&euro;</span>
-        </div>
-    </div>
+	<div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
+		<img class="rounded-t-lg" src="{{asset('assets/img/upload/' ~ annonce.images[0] )}}" alt="{{annonce.titre}}"/>
+		<div class="py-6 px-8 rounded-lg bg-white">
+			<h2 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">
+				<a href="{{path('app_oneannonce', {'slug': annonce.slug})}}">{{annonce.titre}}</a>
+			</h2>
+			<p class="text-gray-700 tracking-wide">{{annonce.description | raw}}</p>
+			<div class="mt-6 flex flex-col items-center justify-between">
+				{% if app.user and app.user.id == annonce.vendeur.id %}
+					<a href="{{path('app_modify', {annonce_id: annonce.id})}}" class="mb-2 inline-flex py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg transition duration-300">
+						<span class="mr-2">
+							<i data-feather="edit"></i>
+						</span>Modifier</a>
+				{% endif %}
+				{% if app.user and app.user.id == annonce.vendeur.id %}
+					<a href="{{path('app_delete', {annonce_id: annonce.id})}}" class="inline-flex py-2 px-4 bg-red-500 text-gray-800 font-bold rounded-lg transition duration-300">
+						<span class="mr-2">
+							<i data-feather="trash"></i>
+						</span>Supprimer</a>
+				{% endif %}
+			</div>
+		</div>
+		<div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">
+			<span class="text-md">{{annonce.prix}}&euro;</span>
+		</div>
+	</div>
+
 </div>

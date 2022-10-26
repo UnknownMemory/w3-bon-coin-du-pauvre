@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AnnoncesController!{% endblock %}
+{% block title %}Le bon coin du pauvre |
+	{{oneAnnonce.titre}}
+{% endblock %}
 
 {% block body %}
 	<div class="bg-white">
@@ -104,6 +106,15 @@
 						<h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">Catégories :
 						</h3>
 						<div class="space-y-6">
+							<pre>
+						
+							
+						
+						</pre>
+							{% for tag in oneAnnonce.tags %}
+								<a href="{{path('app_annonces_tags', {'nom': tag.nom})}}">#
+									{{tag.nom}}</a>
+							{% endfor %}
 							<p class="text-base text-gray-900">Mettre le tableau de catégories en mode avec des boutons c'est juste une boucle for</p>
 						</div>
 					</div>
