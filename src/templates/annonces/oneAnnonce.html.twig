@@ -7,8 +7,8 @@
 	<div class="bg-white">
 		<div class="pt-6">
 
-			{% for image in oneAnnonce.images[0] %}
-				<img src="{{asset('assets/img/upload/' ~ image )}}" alt="">
+			{% for image in oneAnnonce.images %}
+				<img src="{{asset('assets/img/upload/' ~ image )}}" class="h-full w-full object-cover object-center" alt="{{oneAnnonce.titre}}">
 
 			{% endfor %}
 			<!-- Image gallery -->

@@ -32,7 +32,7 @@ class AnnoncesController extends AbstractController
     }
 
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
-    public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request): Response
+    public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request, UploadImageService $upload): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_all');
@@ -44,25 +44,16 @@ class AnnoncesController extends AbstractController
         $annonce = new Annonce();
         $form = $this->createForm(CreationAnnonceType::class, $annonce);
         $form->handleRequest($request);
-        $arrayImage = [];
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            /* Gestion des images */
+            /* On récupérer les différentes images */
             $images = $form['images']->getData();
-
-            foreach ($images as $f) {
-
-                $fileName =  uniqid() . '-le-bon-coin-du-pauvre' . '.' . $f->guessExtension();
-                $destination = $this->getParameter('kernel.project_dir') . '/public/assets/img/upload';
-                $f->move($destination, $fileName);
-
-                $arrayImage[] = $fileName;
-                $annonce->setImages([$arrayImage]);
-            };
-
-
-
-
+            /* On utilise notre service pour upload l'image et on lui passe en parametre les données de nos images, le nom du site, et l'endroit ou l'on veut upload les images*/
+            $arrayImage = $upload->upload($images, "-le-bon-coin-du-pauvre", '/public/assets/img/upload');
+            /* On utilise la méthode setImage pour enregistrer les noms des images dans BDD (ici sous forme de tableau) */
+            $annonce->setImages($arrayImage);
             $annonce->setVendeur($this->getUser());
             $annonce->setDate(new \DateTime());
             $slug = $slugify->slugify($annonce->getTitre() . '-' . $genrateInt);
