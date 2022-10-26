@@ -3,21 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
-use Cocur\Slugify\Slugify;
 
-use App\Entity\Commentaires;
-use App\Form\CommentaireType;
+use App\Entity\Images;
+
 use App\Form\CreationAnnonceType;
+use App\Service\SlugService;
 use App\Service\UploadImageService;
 use App\Repository\AnnonceRepository;
 
-use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\CommentairesRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\DBAL\Exception\DatabaseDoesNotExist;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/annonces')]
 class AnnoncesController extends AbstractController
@@ -32,32 +29,29 @@ class AnnoncesController extends AbstractController
     }
 
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
-    public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request, UploadImageService $upload): Response
+    public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request, SlugService $slugService): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_all');
         }
-        $slugify = new Slugify();
-        $min = 1;
-        $max = 99999;
-        $genrateInt = rand($min, $max);
         $annonce = new Annonce();
         $form = $this->createForm(CreationAnnonceType::class, $annonce);
         $form->handleRequest($request);
-
-
         if ($form->isSubmitted() && $form->isValid()) {
-            /* Gestion des images */
-            /* On récupérer les différentes images */
             $images = $form['images']->getData();
-            /* On utilise notre service pour upload l'image et on lui passe en parametre les données de nos images, le nom du site, et l'endroit ou l'on veut upload les images*/
-            $arrayImage = $upload->upload($images, "-le-bon-coin-du-pauvre", '/public/assets/img/upload');
-            /* On utilise la méthode setImage pour enregistrer les noms des images dans BDD (ici sous forme de tableau) */
-            $annonce->setImages($arrayImage);
+
+            foreach ($images as $f) {
+                $fileName =  uniqid() . '-le-bon-coin-du-pauvre' . '.' . $f->guessExtension();
+                $destination = $this->getParameter('kernel.project_dir') . '/public/assets/img/upload';
+                $f->move($destination, $fileName);
+
+                $arrayImage[] = $fileName;
+                $annonce->setImages([$arrayImage]);
+            };
+
             $annonce->setVendeur($this->getUser());
             $annonce->setDate(new \DateTime());
-            $slug = $slugify->slugify($annonce->getTitre() . '-' . $genrateInt);
-            $annonce->setSlug($slug);
+            $annonce->setSlug($slugService->getSlug($annonce));
             $annonceRepository->save($annonce, true);
         }
         return $this->render('annonces/creationAnnonce.html.twig', [
