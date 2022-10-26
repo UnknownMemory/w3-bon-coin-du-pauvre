@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Le bon coin du pauvre |
-	{{nomAnnonce}}
+	{{nameAnnonce}}
 {% endblock %}
 
 {% block body %}
 	<h1 class="text-center my-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900">Modifier l'annonce :
-		{{nomAnnonce}}</h1>
+		{{nameAnnonce}}
+	</h1>
 	<div class="modif-form w-full flex justify-center">
 		{{ form_start(annonceForm) }}
 		<div class="form-control mb-4">
