@@ -18,6 +18,7 @@
         "symfony/flex": "^2",
         "symfony/form": "6.1.*",
         "symfony/framework-bundle": "6.1.*",
+        "symfony/http-foundation": "6.1.*",
         "symfony/mailer": "6.1.*",
         "symfony/maker-bundle": "^1.47",
         "symfony/mime": "6.1.*",

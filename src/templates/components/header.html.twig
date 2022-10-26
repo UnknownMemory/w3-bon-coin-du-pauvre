@@ -1,5 +1,5 @@
 <!-- navbar goes here -->
-<nav class="bg-gray-100">
+<nav class="bg-gray-100 w-full">
 	<div class="max-w-6xl mx-auto px-4">
 		<div class="flex justify-between">
 
@@ -21,12 +21,12 @@
 					<a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Pricing</a>
 				</div>
 			</div>
-
 			{% if app.user %}
 
 				<div class="hidden md:flex items-center space-x-1">
-					<a href="" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Profil</a>
-					<a href="{{path('app_logout')}}" class="py-5 px-3">Déconnexion</a>
+					<a href="{{path('app_creation')}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Créer une annonce</a>
+					<a href="{{path('app_profil', {id: app.user.id})}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Profil</a>
+					<a href="{{path('app_logout')}}" class="py-2 px-3 bg-red-400 hover:bg-red-300 text-red-900 hover:text-red-800 rounded transition duration-300">Déconnexion</a>
 				</div>
 			{% else %}
 
@@ -36,7 +36,6 @@
 					<a href="{{path('app_register')}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Inscription</a>
 				</div>
 			{% endif %}
-
 			<!-- mobile button goes here -->
 			<div class="md:hidden flex items-center">
 				<button class="mobile-menu-button">

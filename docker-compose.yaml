@@ -11,7 +11,7 @@ services:
             - "1234:80"
         volumes:
             - ./conf/site.conf:/etc/nginx/http.d/default.conf
-            - ./src:/var/www/html
+            - ./src:/var/www/html:cached
         networks:
             - acpSymfony
 

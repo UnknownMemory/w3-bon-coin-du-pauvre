@@ -10,21 +10,29 @@ use App\Form\CreationAnnonceType;
 use App\Service\SlugService;
 use App\Service\UploadImageService;
 use App\Repository\AnnonceRepository;
-
+use Cocur\Slugify\Slugify;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/annonces')]
 class AnnoncesController extends AbstractController
 {
 
+    public function __construct(Security $security, AnnonceRepository $annoncesRepository)
+    {
+        $this->security = $security;
+        $this->annoncesRepository = $annoncesRepository;
+    }
+
     #[Route('/', name: 'app_all')]
-    public function index(AnnonceRepository $annoncesRepository): Response
+    public function index(): Response
     {
         return $this->render('annonces/index.html.twig', [
-            'allAnnonces' => $annoncesRepository->findAll(),
+            'allAnnonces' => $this->annoncesRepository->findAll(),
         ]);
     }
 
@@ -59,18 +67,13 @@ class AnnoncesController extends AbstractController
     }
 
     #[Route('/delete/{annonce_id}', name: 'app_delete')]
-    public function deleteAnnonces(AnnonceRepository $annoncesRepository, int $annonce_id): Response
+    public function deleteAnnonces(int $annonce_id): Response
     {
-        $annonce = $annoncesRepository->find($annonce_id);
-        $annoncesRepository->remove($annonce);
-        return $this->redirectToRoute('app_accueil');
-    }
-
-    #[Route('/{slug}', name: 'app_oneannonce')]
-    public function oneAnnonces(Annonce $annonce): Response
-    {
-        return $this->render('annonces/oneAnnonce.html.twig', [
-            'oneAnnonce' => $annonce
-        ]);
+        $userID = $this->security->getUser()->getId();
+        $annonce = $this->annoncesRepository->find($annonce_id);
+        if ($userID && $userID == $annonce->getVendeur()->getId()) {
+            $this->annoncesRepository->remove($annonce, true);
+            return $this->redirectToRoute('app_accueil');
+        }
     }
 }
