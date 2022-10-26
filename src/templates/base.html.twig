@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Le bon coin du pauvre
 			{% endblock %}
@@ -12,19 +13,24 @@
 		{% block stylesheets %}
 
 			{# CSS LOCAL #}
-			<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
+				<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
 		{% block javascripts %}
 			<script src="https://cdn.tailwindcss.com"></script>
-
+			<script src="https://unpkg.com/feather-icons"></script>
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
 	<body>
 		{% include "components/header.html.twig" %}
-		{% block body %}{% endblock %}
+		<section class="container mx-auto md:px-12 px-2">
+			{% block body %}
+			{% endblock %}
+		</section>
+		<script>
+     		feather.replace();
+    	</script>
 	</body>
 </html>

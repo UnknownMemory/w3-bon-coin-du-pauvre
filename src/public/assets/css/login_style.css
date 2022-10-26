@@ -1,0 +1,9 @@
+#formulaire {
+  border-radius: 30px;
+  background-color: #e5e7eb;
+}
+input {
+  display: block;
+  border: solid lightblue 2px !important;
+}
+

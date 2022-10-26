@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Annonces;
+use App\Entity\Annonce;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Validator\Constraints\Form;
@@ -18,7 +18,6 @@ class CreationAnnonceType extends AbstractType
             ->add('titre')
             ->add('description')
             ->add('prix')
-            ->add('date',DateType::class, ['empty_data' => getdate()] )
             //->add('idTags')
         ;
     }
@@ -26,7 +25,7 @@ class CreationAnnonceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Annonces::class,
+            'data_class' => Annonce::class,
         ]);
     }
 }

@@ -1,3 +1,19 @@
-# w3-bon-coin-du-pauvre
+# Le Bon Coin Du Pauvre
 
-c'est chaud wola
+## Lancer le projet
+
+Démarrage des conteneurs
+
+```console
+docker compose up -d
+```
+
+Installation des dépendences et de la DB
+
+```console
+docker exec -it <id_du_conteneur_symfony> bash
+cd html
+composer i
+symfony console d:d:c
+symfony console d:m:m
+```

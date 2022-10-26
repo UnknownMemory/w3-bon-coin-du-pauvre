@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+Profil de {{information.prenom}}
+{% endblock %}
+
+{% block body %}
+<div class="h-24 my-6 bg-slate-100 flex items-center rounded-lg">
+    <div class="ml-6">
+        <h1 class="text-xl font-semibold">{{information.prenom}}</h1>
+        <div>10% d'évaluations positives</div>
+    </div>
+</div>
+
+<div>
+    <h2 class="text-xl font-semibold mb-4">Annonces</h2>
+    <div class="w-full flex flex-wrap">
+        {% for annonce in myAnnonces %}
+            {{ include('components/_annonce.html.twig', {annonce: annonce}) }}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

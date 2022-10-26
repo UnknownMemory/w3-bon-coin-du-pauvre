@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Annonce;
+use App\Entity\Annonces;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Annonce>
+ * @extends ServiceEntityRepository<Annonces>
  *
- * @method Annonce|null find($id, $lockMode = null, $lockVersion = null)
- * @method Annonce|null findOneBy(array $criteria, array $orderBy = null)
- * @method Annonce[]    findAll()
- * @method Annonce[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Annonces|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Annonces|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Annonces[]    findAll()
+ * @method Annonces[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AnnonceRepository extends ServiceEntityRepository
+class AnnoncesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Annonce::class);
+        parent::__construct($registry, Annonces::class);
     }
 
-    public function save(Annonce $entity, bool $flush = false): void
+    public function save(Annonces $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Annonce $entity, bool $flush = false): void
+    public function remove(Annonces $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -39,9 +39,8 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
-
     /**
-     * @return Annonce[] Returns an array of Annonces objects
+     * @return Annonces[] Returns an array of Annonces objects
      */
 
     public function findSixtLastAnnoncement()
@@ -53,21 +52,9 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function searchAnonces($search)
-    {
-        return $this->createQueryBuilder('a')
-            ->Where('a.titre LIKE :search')
-            ->OrWhere('a.description LIKE :search')
-            ->setParameter('search', '%' . $search . '%')
-            ->getQuery()
-            ->getResult();
-    }
 
 
 
-    //    /**
-    //     * @return Annonce[] Returns an array of Annonce objects
-    //     */
     //    public function findByExampleField($value): array
     //    {
     //        return $this->createQueryBuilder('a')
@@ -80,7 +67,7 @@ class AnnonceRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Annonce
+    //    public function findOneBySomeField($value): ?Annonces
     //    {
     //        return $this->createQueryBuilder('a')
     //            ->andWhere('a.exampleField = :val')
