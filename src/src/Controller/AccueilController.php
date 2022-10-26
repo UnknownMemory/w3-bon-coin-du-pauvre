@@ -26,7 +26,7 @@ class AccueilController extends AbstractController
         }
 
         return $this->render('index.html.twig', [
-            'lastAnnonces' => $annonceRepository->findSixtLastAnnoncement(), // En attente de User et annonces
+            'lastAnnonces' => $annonceRepository->findEightLastAnnoncement(), // En attente de User et annonces
             'PopularTags' => $tags->findFourMostUsedTags(), // OK
             'SearchForm' => $searchBar->createView(), // ok
             'annonces' => $annonceRechercher, //

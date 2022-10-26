@@ -44,11 +44,11 @@ class AnnonceRepository extends ServiceEntityRepository
      * @return Annonce[] Returns an array of Annonces objects
      */
 
-    public function findSixtLastAnnoncement()
+    public function findEightLastAnnoncement()
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.date', 'DESC')
-            ->setMaxResults(6)
+            ->setMaxResults(8)
             ->getQuery()
             ->getResult();
     }
