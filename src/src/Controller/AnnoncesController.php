@@ -7,6 +7,7 @@ use App\Service\SlugService;
 use App\Form\CreationAnnonceType;
 use App\Service\UploadImageService;
 use App\Repository\AnnonceRepository;
+use App\Service\RedirectToService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -67,7 +68,7 @@ class AnnoncesController extends AbstractController
 
 
     #[Route('/modification/{annonce_id}', name: 'app_modify', methods: ["GET", "POST"])]
-    public function modificationAnnonces(Request $request, int $annonce_id): Response
+    public function modificationAnnonces(Request $request, int $annonce_id, RedirectToService $redirectTo): Response
     {
         if ($this->security->getuser()) {
             $annonce = $this->annoncesRepository->find($annonce_id);
@@ -80,7 +81,8 @@ class AnnoncesController extends AbstractController
                 $annonce->setDescription($form->get('description')->getData());
                 $this->annoncesRepository->save($annonce, true);
 
-                return $this->redirectToRoute('app_accueil');
+                $redirectURL = $redirectTo->getRedirectURL($request);
+                return $this->redirect($redirectURL);
             }
 
             return $this->renderForm('annonces/modification.html.twig', [
@@ -99,13 +101,15 @@ class AnnoncesController extends AbstractController
     }
 
     #[Route('/delete/{annonce_id}', name: 'app_delete')]
-    public function deleteAnnonces(int $annonce_id): Response
+    public function deleteAnnonces(Request $request, int $annonce_id, RedirectToService $redirectTo): Response
     {
         $userID = $this->security->getUser()->getId();
         $annonce = $this->annoncesRepository->find($annonce_id);
         if ($userID && $userID == $annonce->getVendeur()->getId()) {
             $this->annoncesRepository->remove($annonce, true);
-            return $this->redirectToRoute('app_accueil');
+
+            $redirectURL = $redirectTo->getRedirectURL($request);
+            return $this->redirect($redirectURL);
         }
     }
 }
