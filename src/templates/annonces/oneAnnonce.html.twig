@@ -7,11 +7,11 @@
 {% block body %}
 	<div class="bg-white">
 		<div class="pt-6">
-
 			{% for image in oneAnnonce.images %}
 				<img src="{{asset('assets/img/upload/' ~ image )}}" class="h-full w-full object-cover object-center" alt="{{oneAnnonce.titre}}">
 
 			{% endfor %}
+
 			<!-- Image gallery -->
 			<div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
 				<div class="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
@@ -38,48 +38,13 @@
 
 				<!-- Options -->
 				<div class="mt-4 lg:row-span-3 lg:mt-0">
-					<h2 class="sr-only">Product information</h2>
 					<p class="text-3xl tracking-tight text-gray-900">{{ oneAnnonce.prix }}
 						€</p>
 					<form class="mt-10">
-						<div class="bg-gray-50">
-							<div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-16 lg:px-8">
-								<p>Mettre les infos de user. Le vendeur</p>
-							</div>
-						</div>
-						<!-- Reviews -->
-						<div class="mt-6">
-							<h3 class="sr-only">Reviews</h3>
-							<div class="flex items-center">
-								<div
-									class="flex items-center">
-									<!--  Heroicon name: mini/star Active: "text-gray-900", Default: "text-gray-200"-->
-									<svg class="text-gray-900 h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-										<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>
-									</svg>
-
-									<!-- Heroicon name: mini/star -->
-									<svg class="text-gray-900 h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-										<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>
-									</svg>
-
-									<!-- Heroicon name: mini/star -->
-									<svg class="text-gray-900 h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-										<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>
-									</svg>
-
-									<!-- Heroicon name: mini/star -->
-									<svg class="text-gray-900 h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-										<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>
-									</svg>
-
-									<!-- Heroicon name: mini/star -->
-									<svg class="text-gray-200 h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
-										<path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"/>
-									</svg>
-								</div>
-								<p class="sr-only">4 out of 5 stars</p>
-								<a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>
+						<div class="border-2 border-gray-300 rounded-2xl">
+							<div class="mx-auto py-6 lg:flex lg:items-center">
+								<i class="h-1/6 w-1/6 ml-5 mr-8" data-feather="user"></i>
+								<p>{{ oneAnnonce.vendeur.prenom }} {{ oneAnnonce.vendeur.nom }}</p>
 							</div>
 						</div>
 						<button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Acheter</button>
@@ -87,8 +52,7 @@
 				</div>
 
 
-				<div
-					class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
+				<div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
 					<!-- Description and details -->
 					<div>
 						<hr/>
@@ -103,22 +67,33 @@
 					<hr/>
 					<br>
 					<div>
-						<h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">Catégories :
+						<h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">Tags :
 						</h3>
 						<div class="space-y-6">
 							<pre>
-						
-							
-						
+
 						</pre>
 							{% for tag in oneAnnonce.tags %}
 								<a href="{{path('app_annonces_tags', {'nom': tag.nom})}}">#
 									{{tag.nom}}</a>
 							{% endfor %}
-							<p class="text-base text-gray-900">Mettre le tableau de catégories en mode avec des boutons c'est juste une boucle for</p>
 						</div>
 					</div>
-
+					<br>
+					<hr/>
+					<br>
+					<div class="lg:flex lg:items-center">
+						<i class="h-6 w-6 mr-3" data-feather="package"></i>
+						<p>Faites-vous livrer à partir de 10,99 € ou choisissez la remise en main propre avec paiement sécurisé</p>
+					</div>
+					<div class="lg:flex lg:items-center mt-3">
+						<i class="h-6 w-6 mr-3" data-feather="dollar-sign"></i>
+						<p>Bénéficiez de la protection acheteurs leboncoin</p>
+					</div>
+					<div class="lg:flex lg:items-center mt-3">
+						<i class="h-6 w-6 mr-3" data-feather="lock"></i>
+						<p>Paiement sécurisé</p>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Annonce;
 use App\Entity\Tag;
-use App\Form\TagsType;
+use App\Form\TagType;
 use App\Repository\TagRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +16,7 @@ class TagController extends AbstractController
     public function tagInAnnonce(Annonce $annonce, Request $request, TagRepository $tagRepository): Response
     {
         $tag = new Tag();
-        $formTag = $this->createForm(TagsType::class, $tag);
+        $formTag = $this->createForm(TagType::class, $tag);
         $formTag->handleRequest($request);
         if ($formTag->isSubmitted() && $formTag->isValid()) {
             $tag->addAnnonce($annonce);
