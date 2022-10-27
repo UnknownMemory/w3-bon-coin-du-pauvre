@@ -48,7 +48,7 @@ class AnnonceRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.date', 'DESC')
-            ->setMaxResults(6)
+            ->setMaxResults(8)
             ->getQuery()
             ->getResult();
     }
