@@ -12,7 +12,7 @@
 
 			{% endfor %}
 
-			<!-- Image gallery -->
+			<!-- Image gallery
 			<div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
 				<div class="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
 					<img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
@@ -29,7 +29,7 @@
 					<img src="https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg" alt="Model wearing plain white basic tee." class="h-full w-full object-cover object-center">
 				</div>
 			</div>
-
+-->
 			<!-- Product info -->
 			<div class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
 				<div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -67,12 +67,8 @@
 					<hr/>
 					<br>
 					<div>
-						<h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">Tags :
-						</h3>
-						<div class="space-y-6">
-							<pre>
-
-						</pre>
+						<h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">Tags :</h3>
+						<div class="space-y-2 mt-3">
 							{% for tag in oneAnnonce.tags %}
 								<a href="{{path('app_annonces_tags', {'nom': tag.nom})}}">#
 									{{tag.nom}}</a>
@@ -103,8 +99,6 @@
 		<br>
 		<br>
 		<br>
-		<br>
-		<br>
 
 		{% for commentaire in oneAnnonce.commentaires %}
 			{{ commentaire.idUser.nom }}
@@ -115,5 +109,13 @@
 		{{ render(controller(
         'App\\Controller\\CommentairesController::commentaireInAnnonce', {annonce: oneAnnonce}
     )) }}
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 
 	{% endblock %}
