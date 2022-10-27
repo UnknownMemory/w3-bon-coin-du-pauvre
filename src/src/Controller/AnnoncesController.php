@@ -37,10 +37,10 @@ class AnnoncesController extends AbstractController
 
 
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
-    public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request, SlugService $slugService, UploadImageService $upload): Response
+    public function creationAnnonces(Request $request, SlugService $slugService, UploadImageService $upload): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('app_all');
+            return $this->redirectToRoute('app_login');
         }
         $annonce = new Annonce();
         $form = $this->createForm(CreationAnnonceType::class, $annonce);
@@ -58,8 +58,9 @@ class AnnoncesController extends AbstractController
             $annonce->setVendeur($this->getUser());
             $annonce->setDate(new \DateTime());
             $annonce->setSlug($slugService->getSlug($annonce));
-            $annonceRepository->save($annonce, true);
+            $this->annoncesRepository->save($annonce, true);
         }
+
         return $this->render('annonces/creationAnnonce.html.twig', [
             'creationAnnonce' => $form->createView(),
         ]);
