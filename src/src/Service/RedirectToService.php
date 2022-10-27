@@ -6,14 +6,13 @@ class RedirectToService
     public function getRedirectURL($request)
     {  
         $host = 'http://'.$request->getHost().':1234';
-        $queryURL = $request->query->get('redirect_url');
+        $queryURL = $request->query->get('redirect_to');
 
         if(!$queryURL)
         {
             return $host;
         }
-
-        $url = 'http://'.$request->getHost().':1234'.$queryURL;
-        return $url;
+        
+        return $host.$queryURL;
     }
 }
