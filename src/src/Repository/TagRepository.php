@@ -52,7 +52,7 @@ class TagRepository extends ServiceEntityRepository
             ->select('t.nom, count(t.nom) as nt') // nt = number of tags
             ->groupBy('t.nom')
             ->orderBy('nt', 'DESC')
-            ->setMaxResults(4)
+            ->setMaxResults(6)
             ->getQuery()
             ->getResult();
     }

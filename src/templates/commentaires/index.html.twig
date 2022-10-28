@@ -1,3 +1,4 @@
-{{ form_start(formCommentaire) }}
-{{ form_widget(formCommentaire.message) }}
-{{ form_end(formCommentaire) }}
+<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Message</label>
+{{ form_widget(formCommentaire.message, {'attr': {'class': 'block p-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 '}}
+)}}
+{{ form_row(formCommentaire.envoye) }}

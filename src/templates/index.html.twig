@@ -3,17 +3,16 @@
 {% block title %}Le Bon Coin Du Pauvre | Accueil
 {% endblock %}
 
-{% block body %}
+{% block altbody %}
 	{# Barre de recherche #}
 	{{ form_start(SearchForm) }}
 
 
-	<div
-		class="bgc-accueil-search my-16 w-full rounded-md">
+	<div class="bgc-accueil-search h-[600px] w-full">
 
 		{# Backgroud noir - recherche #}
-		<div class="flex justify-center">
-			<div class="bg-bleu-transparent p-6 rounded-md w-1/2 ">
+		<div class="h-full flex justify-center items-center">
+			<div class="bg-bleu-transparent p-6 rounded-md w-1/3">
 				<h3 class="text-center text-white text-xl">Rechercher l'article qui vous convient le mieux</h3>
 				<div class='max-w-md mx-auto my-5 z-40 '>
 					<div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden border-solid border">
@@ -37,17 +36,20 @@
 		</div>
 	</div>
 	{{ form_end(SearchForm) }}
+{% endblock %}
+
+{% block body %}
 
 
-	<h2 class="text-center text-2xl uppercase">Nos Best Tags :</h2>
+
+	<h2 class="text-center text-4xl underline decoration-sky-600/30 mb-10 mt-4 font-semibold">Nos meilleures tags </h2>
 	{# Boucle des 4 tags les plus récurrents #}
 	{# <pre> {{ dump(PopularTags) }} </pre> #}
 
-
-	<div class="justify-content-center flex align-items-center my-3">
+	<div class="flex my-3">
 		{% for tags in PopularTags %}
-			<div class="text-center lg:w-1/4 mx-20 sm:w-full  border shadow rounded fs-1 uppercase ">
-				<a href="{{path('app_annonces_tags', {'nom': tags.nom})}}">#{{tags.nom}}</a>
+			<div class="flex justify-center mx-4 fs-1 uppercase w-full">
+				<a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" href="{{ path('app_annonces_tags', {'nom': tags.nom} ) }}">{{tags.nom}}</a>
 			</div>
 		{% endfor %}
 	</div>
@@ -63,8 +65,7 @@
 
 
 			{# Boucle des annonces rechercher #}
-			<h2 class="text-2xl text-center m-16">Résultat de votre recherche :
-			</h2>
+			<h2 class="text-2xl text-center m-16">Résultat de votre recherche :</h2>
 
 			<div class=" flex justify-center items-center ">
 
@@ -78,7 +79,7 @@
 
 	{% else %}
 
-		<h2 class="my-10">Annonces les plus récentes</h2>
+		<h2 class="text-center text-4xl underline decoration-sky-600/30 mb-20 mt-20 font-semibold">Annonces les plus récentes</h2>
 		{# boucle des 6 dernières annonces  #}
 
 		<div class=" flex justify-center items-center ">
