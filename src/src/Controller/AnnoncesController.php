@@ -32,10 +32,6 @@ class AnnoncesController extends AbstractController
         ]);
     }
 
-
-
-
-
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
     public function creationAnnonces(Request $request, SlugService $slugService, UploadImageService $upload): Response
     {
@@ -46,8 +42,6 @@ class AnnoncesController extends AbstractController
         $form = $this->createForm(CreationAnnonceType::class, $annonce);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-
 
             $images = $form['images']->getData();
             /* On utilise notre service pour upload l'image et on lui passe en parametre les données de nos images, le nom du site, et l'endroit ou l'on veut upload les images*/
@@ -90,6 +84,8 @@ class AnnoncesController extends AbstractController
             ]);
         }
     }
+
+
 
     #[Route('/{slug}', name: 'app_oneannonce')]
     public function oneAnnonce(Annonce $annonce): Response
