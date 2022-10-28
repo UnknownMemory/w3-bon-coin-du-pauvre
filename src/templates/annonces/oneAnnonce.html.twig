@@ -12,6 +12,7 @@
 
 			{% endfor %}
 
+
 			<!-- Image gallery -->
 			<div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
 				<div class="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
@@ -44,15 +45,19 @@
 						<div class="border-2 border-gray-300 rounded-2xl">
 							<div class="mx-auto py-6 lg:flex lg:items-center">
 								<i class="h-1/6 w-1/6 ml-5 mr-8" data-feather="user"></i>
-								<p>{{ oneAnnonce.vendeur.prenom }} {{ oneAnnonce.vendeur.nom }}</p>
+								<p>
+									<a href="{{path('app_profil', {'id': oneAnnonce.vendeur.id})}}">{{ oneAnnonce.vendeur.prenom }}
+										{{ oneAnnonce.vendeur.nom }}</a>
+								</p>
 							</div>
 						</div>
-						<button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Acheter</button>
+						<a href="https://paypal.me/TTorrente?country.x=FR&locale.x=fr_FR" target="_blank" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Acheter</a>
 					</form>
 				</div>
 
 
-				<div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
+				<div
+					class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
 					<!-- Description and details -->
 					<div>
 						<hr/>
@@ -99,21 +104,56 @@
 		</div>
 
 		<hr/>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 
-		{% for commentaire in oneAnnonce.commentaires %}
-			{{ commentaire.idUser.nom }}
-			{{ commentaire.idUser.prenom }}
-			{{ commentaire.message }}
-		{% endfor %}
 
-		{{ render(controller(
+		{# Ecritures des commentaires #}
+		<div class="mt-12" id="addComent">
+			{{ render(controller(
         'App\\Controller\\CommentairesController::commentaireInAnnonce', {annonce: oneAnnonce}
     )) }}
+		</div>
+
+		{# Tous les commentaires #}
+		{% for commentaire in oneAnnonce.commentaires %}
+			<div class="flex flex-wrap">
+				<div class="px-10">
+					<div class="bg-white max-w-xl rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500">
+						<svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+						</svg>
+						<div class="mt-4">
+							<p class="mt-4 text-md ">
+								{{ commentaire.message }}</p>
+							<span class="text-gray-600">{{commentaire.datePublication| date('d-m-Y')}}</span>
+							<div class="flex justify-between items-center">
+								<div class="mt-4 flex items-center space-x-4 py-6">
+									<div class="">
+										<svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user h-1/6 w-1/6 ml-5 mr-8">
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+											<circle cx="12" cy="7" r="4"></circle>
+										</svg>
+									</div>
+									<div class="text-sm font-semibold">
+										{{ commentaire.idUser.prenom }}
+										{{ commentaire.idUser.nom }}
+
+										{% if commentaire.getIdUser == oneAnnonce.getVendeur %}
+											<span class="font-normal">(Vendeur)</span>
+										{% else %}
+											<span class="font-normal">(Acheteur potentielle)</span>
+										{% endif %}
+
+									</div>
+								</div>
+								<div class="p-6 bg-yellow-400 rounded-full h-4 w-4 flex items-center justify-center text-2xl text-white mt-4 shadow-lg cursor-pointer">
+									<a href="#addComent">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
 
 	{% endblock %}

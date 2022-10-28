@@ -15,8 +15,7 @@ class CommentaireType extends AbstractType
     {
         $builder
             ->add('message', TextType::class)
-            ->add('envoye', SubmitType::class)
-        ;
+            ->add('Envoyer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
