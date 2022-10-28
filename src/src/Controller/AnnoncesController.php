@@ -33,10 +33,6 @@ class AnnoncesController extends AbstractController
         ]);
     }
 
-
-
-
-
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
     public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request, SlugService $slugService, UploadImageService $upload): Response
     {

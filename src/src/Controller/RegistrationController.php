@@ -46,10 +46,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
-            $vote = new Votes();
-            $vote->setIdUser($user);
-            $vote->setAVoter(false);
+            
 
             $entityManager->persist($user);
             $entityManager->flush();

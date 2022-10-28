@@ -19,6 +19,10 @@ class Votes
     #[ORM\OneToOne(mappedBy: 'idVotes', cascade: ['persist', 'remove'])]
     private ?User $idUser = null;
 
+    #[ORM\ManyToOne(inversedBy: 'votes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $vendeur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,6 +53,18 @@ class Votes
         }
 
         $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    public function getVendeur(): ?User
+    {
+        return $this->vendeur;
+    }
+
+    public function setVendeur(?User $vendeur): self
+    {
+        $this->vendeur = $vendeur;
 
         return $this;
     }

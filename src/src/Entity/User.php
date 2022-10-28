@@ -51,11 +51,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'vendeur', targetEntity: Annonce::class, orphanRemoval: true)]
     private Collection $annonces;
 
+    #[ORM\OneToMany(mappedBy: 'vendeur', targetEntity: Votes::class)]
+    private Collection $votes;
+
     public function __construct()
     {
         $this->idAnnonces = new ArrayCollection();
         $this->idCommentaires = new ArrayCollection();
         $this->annonces = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,6 +236,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($annonce->getVendeur() === $this) {
                 $annonce->setVendeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Votes $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes->add($vote);
+            $vote->setVendeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Votes $vote): self
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getVendeur() === $this) {
+                $vote->setVendeur(null);
             }
         }
 
