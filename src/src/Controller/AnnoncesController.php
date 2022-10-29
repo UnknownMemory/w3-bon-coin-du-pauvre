@@ -78,7 +78,7 @@ class AnnoncesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if($user->getId() != $annonce->getVendeur()->getID()) {
+            if($user->getId() != $annonce->getVendeur()->getId()) {
                 return $this->redirectToRoute('app_all');
             }
 

@@ -109,6 +109,7 @@
 		</div>
 
 		{# Tous les commentaires #}
+		{% if oneAnnonce.commentaires %}
 		{% for commentaire in oneAnnonce.commentaires %}
 			<div class="flex flex-wrap">
 				<div class="px-10">
@@ -149,6 +150,6 @@
 				</div>
 			</div>
 		{% endfor %}
-
+		{% endif %}
 
 	{% endblock %}

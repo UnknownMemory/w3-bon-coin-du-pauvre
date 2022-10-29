@@ -19,6 +19,7 @@ class Votes
     private ?bool $aVoter = null;
 
     #[ORM\OneToOne(mappedBy: 'idVotes', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: "id")]
     private ?User $idUser = null;
 
     #[ORM\ManyToOne(inversedBy: 'votes')]

@@ -3,50 +3,47 @@
 namespace App\Controller;
 
 use App\Entity\Votes;
-use App\Form\VoteFormType;
+use App\Repository\UserRepository;
 use App\Repository\VotesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 #[Route('/votes')]
 class VotesController extends AbstractController
 {
-    #[Route('/voter/{vendeurID}', name: 'app_votes', methods:['POST'])]
-    public function vote(Request $request, Security $security, VotesRepository $votesRepository, $vendeurID): Response
+    #[Route('/process/{vendeurID}', name: 'app_votes')]
+    public function vote(Request $request, Security $security, VotesRepository $votesRepository, UserRepository $userRepository, int $vendeurID): JsonResponse
     {
+
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_all');
         }
 
         $user = $security->getUser();
-        $vote = $votesRepository->findOneBy([
-            'user' => $user,
-            'vendeur' => $vendeurID,
-        ]);
-
+        $vendeur = $userRepository->findOneBy(array('id' => $vendeurID));
+        $vote = $votesRepository->findOneBy(array(
+            'idUser' => $user->getId(),
+            'vendeur' => $vendeur,
+        ));
 
         if($vote == null){
             $vote = new Votes();
         }
-        
-        $form = $this->createForm(VoteFormType::class, $vote);
-        $form->handleRequest($request);
 
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $vote->setAVoter($form->get('aVoter')->getData());
+        $vote->setAVoter($request->get('aVoter'));
 
-            if(($vote->getVendeur() && $vote->getUser()) == null){
-                $vote->setVendeur($vendeurID);
-                $vote->setIdUser($user);
-            }
-
-            $votesRepository->save($vote, true);
-
-            return $this->redirectToRoute($request->header->get('referer'));
+        if(($vote->getVendeur() && $vote->getUser()) == null){
+            $vote->setVendeur($vendeur);
+            $vote->setIdUser($user->getId());
         }
+        
+        $votesRepository->save($vote, true);
+     
+        $response = new JsonResponse(['vote' => $vote->isAVoter(), 'customer' => $vote->getIdUser(), 'vendeur' => $vote->getVendeur()->getId()]);
+        return $response;
+        
     }
 }
