@@ -66,26 +66,36 @@ class AnnoncesController extends AbstractController
     #[Route('/modification/{annonce_id}', name: 'app_modify', methods: ["GET", "POST"])]
     public function modificationAnnonces(Request $request, int $annonce_id, RedirectToService $redirectTo): Response
     {
-        if ($this->security->getuser()) {
-            $annonce = $this->annoncesRepository->find($annonce_id);
-            $form = $this->createForm(CreationAnnonceType::class, $annonce);
+        $user = $this->security->getuser();
 
-            $form->handleRequest($request);
+        if(!$user){
+            return $this->redirectToRoute('app_all');
+        }
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $annonce->setTitre($form->get('titre')->getData());
-                $annonce->setDescription($form->get('description')->getData());
-                $this->annoncesRepository->save($annonce, true);
+        $annonce = $this->annoncesRepository->find($annonce_id);
+        $form = $this->createForm(CreationAnnonceType::class, $annonce);
 
-                $redirectURL = $redirectTo->getRedirectURL($request);
-                return $this->redirect($redirectURL);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if($user->getId() != $annonce->getVendeur()->getID()) {
+                return $this->redirectToRoute('app_all');
             }
 
-            return $this->renderForm('annonces/modification.html.twig', [
-                'annonceForm' => $form,
-                'nameAnnonce' => $annonce->getTitre(),
-            ]);
+            $annonce->setTitre($form->get('titre')->getData());
+            $annonce->setDescription($form->get('description')->getData());
+            $this->annoncesRepository->save($annonce, true);
+
+            $redirectURL = $redirectTo->getRedirectURL($request);
+            return $this->redirect($redirectURL);
         }
+
+        return $this->renderForm('annonces/modification.html.twig', [
+            'annonceForm' => $form,
+            'nameAnnonce' => $annonce->getTitre(),
+        ]);
+        
     }
 
     #[Route('/{slug}', name: 'app_oneannonce')]
