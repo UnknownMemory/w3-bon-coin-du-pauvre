@@ -8,4 +8,5 @@
 /public/assets//img/upload
 /var/
 /vendor/
+/public/assets/img/
 ###< symfony/framework-bundle ###
