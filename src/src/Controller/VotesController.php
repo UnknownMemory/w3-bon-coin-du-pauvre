@@ -42,7 +42,7 @@ class VotesController extends AbstractController
         
         $votesRepository->save($vote, true);
      
-        $response = new JsonResponse(['vote' => $vote->isAVoter(), 'customer' => $vote->getIdUser(), 'vendeur' => $vote->getVendeur()->getId()]);
+        $response = new JsonResponse(['vote' => $vote->isAVoter(), 'customer' => $vote->getIdUser()->getId(), 'vendeur' => $vote->getVendeur()->getId()]);
         return $response;
         
     }
