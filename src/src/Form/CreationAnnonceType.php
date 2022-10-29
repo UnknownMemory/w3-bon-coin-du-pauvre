@@ -45,15 +45,14 @@ class CreationAnnonceType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'nom',
                 'multiple' => true,
+                'expanded' => true,
                 'by_reference' => false,
                 'query_builder' => function ($er) {
                     return $er->createQueryBuilder('t')
-                        ->orderBy('t.nom', 'ASC');
+                        ->orderBy('t.nom', 'ASC')
+                        ->distinct('t.nom');
                 },
-            ])
-        ;
-
-
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

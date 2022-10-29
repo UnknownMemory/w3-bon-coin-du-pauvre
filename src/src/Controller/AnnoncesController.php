@@ -34,17 +34,15 @@ class AnnoncesController extends AbstractController
     }
 
     #[Route('/creation', name: 'app_creation', methods: ["GET", "POST"])]
-    public function creationAnnonces(AnnonceRepository $annonceRepository, Request $request, SlugService $slugService, UploadImageService $upload): Response
+    public function creationAnnonces(Request $request, SlugService $slugService, UploadImageService $upload): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('app_all');
+            return $this->redirectToRoute('app_login');
         }
         $annonce = new Annonce();
         $form = $this->createForm(CreationAnnonceType::class, $annonce);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-
 
             $images = $form['images']->getData();
             /* On utilise notre service pour upload l'image et on lui passe en parametre les données de nos images, le nom du site, et l'endroit ou l'on veut upload les images*/
@@ -55,8 +53,9 @@ class AnnoncesController extends AbstractController
             $annonce->setVendeur($this->getUser());
             $annonce->setDate(new \DateTime());
             $annonce->setSlug($slugService->getSlug($annonce));
-            $annonceRepository->save($annonce, true);
+            $this->annoncesRepository->save($annonce, true);
         }
+
         return $this->render('annonces/creationAnnonce.html.twig', [
             'creationAnnonce' => $form->createView(),
         ]);
@@ -97,6 +96,8 @@ class AnnoncesController extends AbstractController
         ]);
         
     }
+
+
 
     #[Route('/{slug}', name: 'app_oneannonce')]
     public function oneAnnonce(Annonce $annonce): Response
