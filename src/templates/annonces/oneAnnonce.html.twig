@@ -16,10 +16,7 @@
 
 						{% for image in oneAnnonce.images %}
 
-							<!-- Item 3 -->
-							<div
-								class="hidden duration-700 " data-carousel-item>
-								{# 			<img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="..."> #}
+							<div class="hidden duration-700" data-carousel-item>
 								<img src="{{asset('assets/img/upload/' ~ image )}}" class="lock absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="{{oneAnnonce.titre}}">
 
 							</div>
@@ -73,17 +70,20 @@
 										<a href="{{path('app_profil', {'id': oneAnnonce.vendeur.id})}}">{{ oneAnnonce.vendeur.prenom }}
 											{{ oneAnnonce.vendeur.nom }}</a>
 									</p>
-									<div><span id="positive-votes">0</span> évalutations positifs (<span id="total-votes"></span> votes)</div>
+									<div>
+										<span id="positive-votes">0</span>
+										évalutations positifs (<span id="total-votes"></span>
+										votes)</div>
 								</div>
 							</div>
 						</div>
 						<a href="https://paypal.me/TTorrente?country.x=FR&locale.x=fr_FR" target="_blank" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Acheter</a>
 					</form>
 					{% if app.user and oneAnnonce.vendeur.id != app.user.id %}
-					<div class="w-full mt-14">
-						<div class="text-center mb-4">Conseillez-vous ce vendeur ?</div>
-						{{ include('vote/vote.html.twig', {'vendeurId': oneAnnonce.vendeur.id})}}
-					</div>
+						<div class="w-full mt-14">
+							<div class="text-center mb-4">Conseillez-vous ce vendeur ?</div>
+							{{ include('vote/vote.html.twig', {'vendeurId': oneAnnonce.vendeur.id})}}
+						</div>
 					{% endif %}
 				</div>
 
