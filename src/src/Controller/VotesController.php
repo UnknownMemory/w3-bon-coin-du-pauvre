@@ -14,6 +14,20 @@ use Symfony\Component\Security\Core\Security;
 #[Route('/votes')]
 class VotesController extends AbstractController
 {
+
+    #[Route('/all/{vendeurID}', name: "app_get_votes")]
+    public function getVotes(Request $request,  UserRepository $userRepository, VotesRepository $votesRepository, int $vendeurID): JsonResponse
+    {
+        $vendeur = $userRepository->findOneBy(array('id' => $vendeurID));
+        $totalVotes = $votesRepository->findBy(array('vendeur' => $vendeur));
+        
+        $positiveVotes = array_filter($totalVotes, function($vote) {
+            return $vote->isAVoter() == true;
+        });
+
+        return new JsonResponse(['total_votes' => count($totalVotes), 'positive_votes' => count($positiveVotes)]);
+    }
+
     #[Route('/process/{vendeurID}', name: 'app_votes')]
     public function vote(Request $request, Security $security, VotesRepository $votesRepository, UserRepository $userRepository, int $vendeurID): JsonResponse
     {
@@ -37,7 +51,7 @@ class VotesController extends AbstractController
 
         if(($vote->getVendeur() && $vote->getUser()) == null){
             $vote->setVendeur($vendeur);
-            $vote->setIdUser($user->getId());
+            $vote->setIdUser($user);
         }
         
         $votesRepository->save($vote, true);

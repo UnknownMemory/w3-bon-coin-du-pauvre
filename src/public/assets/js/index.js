@@ -1,29 +1,28 @@
-const HOST = 'http://127.0.0.1:1234'
+import request from './request.js'
+
+const HOST = 'http://127.0.0.1:1234';
 
 const like = document.querySelector('#like');
 const dislike = document.querySelector('#dislike');
+const vendeurId = document.querySelector('div[data-vendeur-id]').getAttribute('data-vendeur-id')
 
-const request = async (method, url, body = null, headers = {}) => {
-    try {
-        const res = await fetch(url, {body, headers: headers, method: method});
-        const data = await res.json();
+const getVotes = async () => {
+    const totalVotes = document.querySelector('#total-votes');
+    const positiveVotes = document.querySelector('#positive-votes');
 
-        return data;
-    } catch(error) {
-        return error;
-    }
-};
+    let res = await request('GET', `${HOST}/votes/all/${vendeurId}`);
 
-
+    positiveVotes.innerHTML = res.positive_votes;
+    totalVotes.innerHTML = res.total_votes;
+}
 
 const voteEvent = (element, voteBool) => {
     element.addEventListener('click', async () => {
-        const vendeurId = element.parentNode.getAttribute('data-vendeur-id');
-    
         const formdata = new FormData();
         formdata.append('aVoter', voteBool);
         
-        res = await request('POST', `${HOST}/votes/process/${vendeurId}`, formdata);
+        let res = await request('POST', `${HOST}/votes/process/${vendeurId}`, formdata);
+        getVotes();
         // if(res?.vote){
         //     element.classList.add('bg-green-600')
         // } else {
@@ -32,5 +31,9 @@ const voteEvent = (element, voteBool) => {
     })
 }
 
-voteEvent(like, 1);
-voteEvent(dislike, 0)
+if(like !== null){
+    voteEvent(like, 1);
+    voteEvent(dislike, 0)
+}
+
+getVotes();
