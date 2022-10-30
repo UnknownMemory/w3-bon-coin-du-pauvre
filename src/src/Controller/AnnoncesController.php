@@ -46,7 +46,7 @@ class AnnoncesController extends AbstractController
 
             $images = $form['images']->getData();
             /* On utilise notre service pour upload l'image et on lui passe en parametre les données de nos images, le nom du site, et l'endroit ou l'on veut upload les images*/
-            $arrayImage = $upload->upload($images, "-le-bon-coin-du-pauvre", '/public/assets/img/upload');
+            $arrayImage = $upload->upload($images, "-le-bon-sommet", '/public/assets/img/upload');
             /* On utilise la méthode setImage pour enregistrer les noms des images dans BDD (ici sous forme de tableau) */
             $annonce->setImages($arrayImage);
 
@@ -67,7 +67,7 @@ class AnnoncesController extends AbstractController
     {
         $user = $this->security->getuser();
 
-        if(!$user){
+        if (!$user) {
             return $this->redirectToRoute('app_all');
         }
 
@@ -78,7 +78,7 @@ class AnnoncesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if($user->getId() != $annonce->getVendeur()->getId()) {
+            if ($user->getId() != $annonce->getVendeur()->getId()) {
                 return $this->redirectToRoute('app_all');
             }
 
@@ -94,7 +94,6 @@ class AnnoncesController extends AbstractController
             'annonceForm' => $form,
             'nameAnnonce' => $annonce->getTitre(),
         ]);
-        
     }
 
 

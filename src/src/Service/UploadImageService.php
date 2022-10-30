@@ -7,7 +7,7 @@
 // /* On définir l'endroid ou l'on veut placer les images */
 // $destination = $this->getParameter('kernel.project_dir') . '/public/assets/img/upload';
 // /* on rename les images un id unique -suivi du nom du site ainsi que de l'extension */
-// $fileName = uniqid() . '-le-bon-coin-du-pauvre.' . $images->guessExtension();
+// $fileName = uniqid() . '-le-bon-sommet.' . $images->guessExtension();
 // /* On déplace le fichier dans la destination */
 // $images->move($destination, $fileName);
 // /* On utilise la méthode setImage pour enregistrer le nom de l'image dans BDD (ici sous forme de tableau) */
@@ -17,7 +17,7 @@
 
 /* 
             foreach ($images as $f) {
-                $fileName =  uniqid() . '-le-bon-coin-du-pauvre' . '.' . $f->guessExtension();
+                $fileName =  uniqid() . '-le-bon-sommet' . '.' . $f->guessExtension();
                 $destination = $this->getParameter('kernel.project_dir') . '/public/assets/img/upload';
                 $f->move($destination, $fileName);
 

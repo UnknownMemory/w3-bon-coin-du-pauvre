@@ -11,7 +11,7 @@
 						<svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
 						</svg>
-						<span class="font-bold">Le Bon Coin Du Pauvre</span>
+						<span class="font-bold">Le bon sommet</span>
 					</a>
 				</div>
 
@@ -29,10 +29,10 @@
 				</div>
 			{% else %}
 				<div class="hidden md:flex items-center space-x-1 flex items-end">
-				<a href="{{path('app_login')}}" class="py-5 px-3">Connexion</a>
-				<a href="{{path('app_register')}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Inscription</a>
+					<a href="{{path('app_login')}}" class="py-5 px-3">Connexion</a>
+					<a href="{{path('app_register')}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Inscription</a>
 				</div>
-		
+
 			{% endif %}
 			<!-- mobile button goes here -->
 			<div class="md:hidden flex items-center">

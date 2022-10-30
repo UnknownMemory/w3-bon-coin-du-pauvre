@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
-			{% block title %}Le bon coin du pauvre
+			{% block title %}Le bon sommet
 			{% endblock %}
 		</title>
 		<link
@@ -13,7 +13,7 @@
 		{% block stylesheets %}
 
 			{# CSS LOCAL #}
-				<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+			<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
@@ -25,14 +25,11 @@
 	</head>
 	<body>
 		{% include "components/header.html.twig" %}
-		{% block altbody %}
-		{% endblock %}
-		<section class="container mx-auto md:px-12 px-2">
-			{% block body %}
-			{% endblock %}
-		</section>
-		<script>
-     		feather.replace();
-    	</script>
-	</body>
-</html>
+		{% block altbody %}{% endblock %}
+		<section class="container mx-auto md:px-12 px-2"> {% block body %}{% endblock %}
+			</section>
+			<script>
+				feather.replace();
+			</script>
+		</body>
+	</html>

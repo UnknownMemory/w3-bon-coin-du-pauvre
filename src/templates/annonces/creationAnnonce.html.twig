@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Le bon coin du pauvre | Créer une annonce
+{% block title %}Le bon sommet | Créer une annonce
 {% endblock %}
 
 {% block body %}
@@ -11,19 +11,21 @@
 			{{ form_start(creationAnnonce, {'enctype': 'multipart/form-data'}) }}
 			<div class="mb-6">
 				<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Titre</label>
-				{{ form_widget(creationAnnonce.titre, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'}} )}}
+				{{ form_widget(creationAnnonce.titre, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'}}
+				)}}
 
-			<div class="mb-6">
-				<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Description</label>
-					{{ form_widget(creationAnnonce.description, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'}} ) }}
-			</div>
-			<div class="mb-6">
-				<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Prix</label>
+				<div class="mb-6">
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Description</label>
+					{{ form_widget(creationAnnonce.description, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'}}
+					) }}
+				</div>
+				<div class="mb-6">
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Prix</label>
 					{{ form_widget(creationAnnonce.prix, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'}}) }}
-			</div>
+				</div>
 
-			<button type="submit" class="mt-8 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Valider</button>
-			{{ form_end(creationAnnonce) }}
+				<button type="submit" class="mt-8 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Valider</button>
+				{{ form_end(creationAnnonce) }}
+			</div>
 		</div>
-	</div>
-{% endblock %}
+	{% endblock %}
