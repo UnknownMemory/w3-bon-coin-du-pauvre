@@ -45,6 +45,8 @@ class CreationAnnonceType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'nom',
                 'multiple' => true,
+                /* add input text */
+
                 'expanded' => true,
                 'by_reference' => false,
                 'query_builder' => function ($er) {

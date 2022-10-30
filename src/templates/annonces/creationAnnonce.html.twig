@@ -24,6 +24,17 @@
 					{{ form_widget(creationAnnonce.prix, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'}}) }}
 				</div>
 
+				<div class="mb-6">
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Upload d'une ou plusieurs images</label>
+					{{ form_widget(creationAnnonce.images, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'}}) }}
+				</div>
+
+				<div class="mb-6">
+					<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-30">Tags</label>
+					{{ form_widget(creationAnnonce.tags, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 '}}) }}
+				</div>
+
+
 				<button type="submit" class="mt-8 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Valider</button>
 				{{ form_end(creationAnnonce) }}
 			</div>
