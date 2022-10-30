@@ -39,28 +39,42 @@ class TagsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Tags[] Returns an array of Tags objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Tags[] Returns an array of Tags objects
+     */
 
-//    public function findOneBySomeField($value): ?Tags
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /* Query pour find les 4 tags les plus récurents dans la BDD */
+
+    public function findFourMostUsedTags()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t.nom, count(t.nom) as nt') // nt = number of tags
+            ->groupBy('t.nom')
+            ->orderBy('nt', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+    /*    public function findByExampleField($value): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findOneBySomeField($value): ?Tags
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult();
+    } */
 }

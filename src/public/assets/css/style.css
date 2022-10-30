@@ -1,0 +1,38 @@
+/* GESTION DES COULEURS */
+
+:root {
+  --exemple: #f2c94c;
+}
+
+/* REGLES GLOBALES */
+
+/* REGLES DU HEADER */
+
+/* REGLES DU FOOTER */
+
+/* REGLES DE L'ACCUEIL */
+
+.bgc-accueil-search {
+  background-image: url("https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-bleu-transparent {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modif-form form {
+  width: 50%;
+}
+
+.form-control input {
+  text-align: center;
+}
+
+.form-control input, .form-control textarea {
+  width: 100%;
+  background-color: rgb(237 237 237);
+  height: 60px;
+}

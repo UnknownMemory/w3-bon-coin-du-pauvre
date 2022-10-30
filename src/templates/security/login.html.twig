@@ -1,42 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block head %}
+	<a href="https://front.codes/" class="logo" target="_blank">
+	<img src="https://assets.codepen.io/1462889/fcy.png" alt=""></a>
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/login_style.css') }}">
+{% endblock %}
+
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
+<h2 class="flex justify-center mt-16 uppercase">Connexion</h2>
+     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+     {% endif %}
 
-    {% if app.user %}
+     {% if app.user %}
         <div class="mb-3">
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+	<div class="w-full flex justify-center">
+	<form class="w-full max-w-lg mt-9 shadow-2xl" id="formulaire" method="post">
+  <div class="flex flex-wrap items-center flex-col mx-3 pl-2 pt-3 mb-6">
+  
+   <div class="w-15 md:w-1/2 px-3">
+     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-center" for="inputEmail">
+        Email
+      </label>
+      <input  value="{{last_username}}" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="inputEmail" type="email" name="email" autocomplete="email" required autofocus>
+       <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <div class="h-2/4 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-center" for="inputPassword">
+        Mot de passe
+      </label>
+      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="inputPassword" autocomplete="current-password" type="password" name="password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    </div>
+  </div>
+	<div class="w-full mt-6 mb-4 flex justify-center">
+		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">C'est parti !</button>
+	</div>
+  </div>
+  </div>
 </form>
+</div>
+
 {% endblock %}

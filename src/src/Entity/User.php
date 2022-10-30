@@ -37,11 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\OneToMany(mappedBy: 'idUsers', targetEntity: Annonces::class, orphanRemoval: true)]
-    private Collection $idAnnonces;
 
     #[ORM\OneToOne(inversedBy: 'idUser', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Votes $idVotes = null;
 
     #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Commentaires::class, orphanRemoval: true)]
@@ -50,10 +48,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\OneToMany(mappedBy: 'vendeur', targetEntity: Annonce::class, orphanRemoval: true)]
+    private Collection $annonces;
+
+    #[ORM\OneToMany(mappedBy: 'vendeur', targetEntity: Votes::class)]
+    private Collection $votes;
+
+    #[ORM\ManyToMany(targetEntity: Votes::class, mappedBy: 'user')]
+    private Collection $voted;
+
     public function __construct()
     {
         $this->idAnnonces = new ArrayCollection();
         $this->idCommentaires = new ArrayCollection();
+        $this->annonces = new ArrayCollection();
+        $this->votes = new ArrayCollection();
+        $this->voted = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,35 +160,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Annonces>
-     */
-    public function getIdAnnonces(): Collection
-    {
-        return $this->idAnnonces;
-    }
 
-    public function addIdAnnonce(Annonces $idAnnonce): self
-    {
-        if (!$this->idAnnonces->contains($idAnnonce)) {
-            $this->idAnnonces->add($idAnnonce);
-            $idAnnonce->setIdUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdAnnonce(Annonces $idAnnonce): self
-    {
-        if ($this->idAnnonces->removeElement($idAnnonce)) {
-            // set the owning side to null (unless already changed)
-            if ($idAnnonce->getIdUsers() === $this) {
-                $idAnnonce->setIdUsers(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getIdVotes(): ?Votes
     {
@@ -230,6 +212,93 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces->add($annonce);
+            $annonce->setVendeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->annonces->removeElement($annonce)) {
+            // set the owning side to null (unless already changed)
+            if ($annonce->getVendeur() === $this) {
+                $annonce->setVendeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Votes $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes->add($vote);
+            $vote->setVendeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Votes $vote): self
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getVendeur() === $this) {
+                $vote->setVendeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getVoted(): Collection
+    {
+        return $this->voted;
+    }
+
+    public function addVoted(Votes $voted): self
+    {
+        if (!$this->voted->contains($voted)) {
+            $this->voted->add($voted);
+            $voted->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoted(Votes $voted): self
+    {
+        if ($this->voted->removeElement($voted)) {
+            $voted->removeUser($this);
+        }
 
         return $this;
     }

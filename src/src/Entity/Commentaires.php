@@ -17,13 +17,16 @@ class Commentaires
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\ManyToOne(inversedBy: 'idCommentaires')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Annonces $idAnnonces = null;
 
     #[ORM\ManyToOne(inversedBy: 'idCommentaires')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $idUser = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Annonce $annonce = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $datePublication = null;
 
     public function getId(): ?int
     {
@@ -42,18 +45,6 @@ class Commentaires
         return $this;
     }
 
-    public function getIdAnnonces(): ?Annonces
-    {
-        return $this->idAnnonces;
-    }
-
-    public function setIdAnnonces(?Annonces $idAnnonces): self
-    {
-        $this->idAnnonces = $idAnnonces;
-
-        return $this;
-    }
-
     public function getIdUser(): ?User
     {
         return $this->idUser;
@@ -62,6 +53,30 @@ class Commentaires
     public function setIdUser(?User $idUser): self
     {
         $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Annonce
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(?Annonce $annonce): self
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    public function getDatePublication(): ?\DateTimeInterface
+    {
+        return $this->datePublication;
+    }
+
+    public function setDatePublication(\DateTimeInterface $datePublication): self
+    {
+        $this->datePublication = $datePublication;
 
         return $this;
     }
