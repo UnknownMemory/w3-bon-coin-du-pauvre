@@ -16,6 +16,11 @@ const getVotes = async () => {
     totalVotes.innerHTML = res.total_votes;
 }
 
+const getUserVote = async () => {
+    let res = await request('GET', `${HOST}/votes/get/${vendeurId}`);
+    return res;
+}
+
 const voteEvent = (element, voteBool) => {
     element.addEventListener('click', async () => {
         const formdata = new FormData();
@@ -23,17 +28,27 @@ const voteEvent = (element, voteBool) => {
         
         let res = await request('POST', `${HOST}/votes/process/${vendeurId}`, formdata);
         getVotes();
-        // if(res?.vote){
-        //     element.classList.add('bg-green-600')
-        // } else {
-        //     element.classList.add('bg-red-600')
-        // }
+        setBtnColor(res);
     })
+}
+
+const setBtnColor = (vote) => {
+    if(vote.vote){
+        dislike.classList.remove('bg-red-600')
+        like.classList.add('bg-green-600')
+    } else {
+        like.classList.remove('bg-green-600')
+        dislike.classList.add('bg-red-600')
+    }
 }
 
 if(like !== null){
     voteEvent(like, 1);
     voteEvent(dislike, 0)
+    
+    getUserVote().then(vote => {
+        setBtnColor(vote);
+    })
 }
 
 getVotes();

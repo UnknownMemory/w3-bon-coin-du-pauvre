@@ -28,6 +28,20 @@ class VotesController extends AbstractController
         return new JsonResponse(['total_votes' => count($totalVotes), 'positive_votes' => count($positiveVotes)]);
     }
 
+    #[Route('/get/{vendeurID}', name: "app_get_user_vote")]
+    public function getVote(Security $security, Request $request,  UserRepository $userRepository, VotesRepository $votesRepository, int $vendeurID): JsonResponse
+    {
+        $user = $security->getUser();
+        $vendeur = $userRepository->findOneBy(array('id' => $vendeurID));
+        $vote = $votesRepository->findOneBy(array(
+            'vendeur' => $vendeur, 
+            'idUser' => $user->getId()
+        ));
+        
+        $response = new JsonResponse(['vote' => $vote->isAVoter(), 'customer' => $vote->getIdUser()->getId(), 'vendeur' => $vote->getVendeur()->getId()]);
+        return $response;
+    }
+
     #[Route('/process/{vendeurID}', name: 'app_votes')]
     public function vote(Request $request, Security $security, VotesRepository $votesRepository, UserRepository $userRepository, int $vendeurID): JsonResponse
     {

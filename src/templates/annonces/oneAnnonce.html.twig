@@ -42,7 +42,7 @@
 						€</p>
 					<form class="mt-10">
 						<div class="border-2 border-gray-300 rounded-2xl">
-							<div class="mx-auto py-6 lg:flex lg:items-center">
+							<div class="mx-auto py-6 lg:flex lg:items-center" data-vendeur-id={{oneAnnonce.vendeur.id}}>
 								<i class="h-1/6 w-1/6 ml-5 mr-8" data-feather="user"></i>
 								<div class="flex flex-col">
 									<p>
@@ -55,10 +55,12 @@
 						</div>
 						<a href="https://paypal.me/TTorrente?country.x=FR&locale.x=fr_FR" target="_blank" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Acheter</a>
 					</form>
+					{% if app.user and oneAnnonce.vendeur.id != app.user.id %}
 					<div class="w-full mt-14">
-						<div class="text-center mb-4">Conseillez-vous ce vendeur ?</div>	
+						<div class="text-center mb-4">Conseillez-vous ce vendeur ?</div>
 						{{ include('vote/vote.html.twig', {'vendeurId': oneAnnonce.vendeur.id})}}
 					</div>
+					{% endif %}
 				</div>
 
 
