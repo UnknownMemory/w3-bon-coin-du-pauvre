@@ -1,0 +1,11 @@
+  #formulaire {
+  border-radius: 30px;
+  background-color: white;
+}
+input {
+  display: block;
+  border: solid lightblue 2px !important;
+}
+.form-color {
+  background-color: rgb(237, 237, 237)  !important;  
+}
