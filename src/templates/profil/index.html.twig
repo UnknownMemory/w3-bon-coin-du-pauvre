@@ -5,10 +5,10 @@ Profil de {{information.prenom}}
 {% endblock %}
 
 {% block body %}
-<div class="h-24 my-6 bg-slate-100 flex items-center rounded-lg">
+<div class="h-24 my-6 bg-slate-100 flex items-center rounded-lg" data-vendeur-id={{information.id}}>
     <div class="ml-6">
         <h1 class="text-xl font-semibold">{{information.prenom}}</h1>
-        <div>10% d'évaluations positives</div>
+        <div><span id="positive-votes">0</span> évalutations positifs (<span id="total-votes"></span> votes)</div>
     </div>
 </div>
 
@@ -20,5 +20,5 @@ Profil de {{information.prenom}}
         {% endfor %}
     </div>
 </div>
-
+<script type="module" src="{{ asset('assets/js/index.js') }}"></script>
 {% endblock %}
