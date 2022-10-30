@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221017165546 extends AbstractMigration
+final class Version20221018155515 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -28,8 +28,8 @@ final class Version20221017165546 extends AbstractMigration
         $this->addSql('ALTER TABLE annonce ADD CONSTRAINT FK_F65593E5858C065E FOREIGN KEY (vendeur_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE annonce_tag ADD CONSTRAINT FK_C304E7E28805AB2F FOREIGN KEY (annonce_id) REFERENCES annonce (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE annonce_tag ADD CONSTRAINT FK_C304E7E2BAD26311 FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE annonces_tags DROP FOREIGN KEY FK_557AEAEF4C2885D7');
         $this->addSql('ALTER TABLE annonces_tags DROP FOREIGN KEY FK_557AEAEF8D7B4FB4');
+        $this->addSql('ALTER TABLE annonces_tags DROP FOREIGN KEY FK_557AEAEF4C2885D7');
         $this->addSql('ALTER TABLE annonces DROP FOREIGN KEY FK_CB988C6F376858A8');
         $this->addSql('DROP TABLE tags');
         $this->addSql('DROP TABLE annonces_tags');
@@ -52,8 +52,8 @@ final class Version20221017165546 extends AbstractMigration
         $this->addSql('CREATE TABLE tags (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('CREATE TABLE annonces_tags (annonces_id INT NOT NULL, tags_id INT NOT NULL, INDEX IDX_557AEAEF4C2885D7 (annonces_id), INDEX IDX_557AEAEF8D7B4FB4 (tags_id), PRIMARY KEY(annonces_id, tags_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('CREATE TABLE annonces (id INT AUTO_INCREMENT NOT NULL, id_users_id INT NOT NULL, titre VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, description LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, prix DOUBLE PRECISION NOT NULL, date DATE NOT NULL, slug VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, INDEX IDX_CB988C6F376858A8 (id_users_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
-        $this->addSql('ALTER TABLE annonces_tags ADD CONSTRAINT FK_557AEAEF4C2885D7 FOREIGN KEY (annonces_id) REFERENCES annonces (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE annonces_tags ADD CONSTRAINT FK_557AEAEF8D7B4FB4 FOREIGN KEY (tags_id) REFERENCES tags (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE annonces_tags ADD CONSTRAINT FK_557AEAEF4C2885D7 FOREIGN KEY (annonces_id) REFERENCES annonces (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE annonces ADD CONSTRAINT FK_CB988C6F376858A8 FOREIGN KEY (id_users_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE annonce DROP FOREIGN KEY FK_F65593E5858C065E');
         $this->addSql('ALTER TABLE annonce_tag DROP FOREIGN KEY FK_C304E7E28805AB2F');

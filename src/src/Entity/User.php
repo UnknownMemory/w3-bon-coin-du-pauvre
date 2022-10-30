@@ -51,11 +51,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'vendeur', targetEntity: Annonce::class, orphanRemoval: true)]
     private Collection $annonces;
 
+    #[ORM\OneToMany(mappedBy: 'vendeur', targetEntity: Votes::class)]
+    private Collection $votes;
+
+    #[ORM\ManyToMany(targetEntity: Votes::class, mappedBy: 'user')]
+    private Collection $voted;
+
     public function __construct()
     {
         $this->idAnnonces = new ArrayCollection();
         $this->idCommentaires = new ArrayCollection();
         $this->annonces = new ArrayCollection();
+        $this->votes = new ArrayCollection();
+        $this->voted = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,6 +241,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($annonce->getVendeur() === $this) {
                 $annonce->setVendeur(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Votes $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes->add($vote);
+            $vote->setVendeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Votes $vote): self
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getVendeur() === $this) {
+                $vote->setVendeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getVoted(): Collection
+    {
+        return $this->voted;
+    }
+
+    public function addVoted(Votes $voted): self
+    {
+        if (!$this->voted->contains($voted)) {
+            $this->voted->add($voted);
+            $voted->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoted(Votes $voted): self
+    {
+        if ($this->voted->removeElement($voted)) {
+            $voted->removeUser($this);
         }
 
         return $this;

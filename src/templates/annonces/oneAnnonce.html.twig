@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le bon coin du pauvre |
+	{{oneAnnonce.titre}}
+{% endblock %}
+
+{% block body %}
+	<div class="bg-white">
+		<div class="pt-6">
+			{% for image in oneAnnonce.images %}
+				<img src="{{asset('assets/img/upload/' ~ image )}}" class="h-full w-full object-cover object-center" alt="{{oneAnnonce.titre}}">
+
+			{% endfor %}
+
+			<!-- Image gallery
+						<div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+							<div class="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
+								<img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
+							</div>
+							<div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+								<div class="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
+									<img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg" alt="Model wearing plain black basic tee." class="h-full w-full object-cover object-center">
+								</div>
+								<div class="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
+									<img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg" alt="Model wearing plain gray basic tee." class="h-full w-full object-cover object-center">
+								</div>
+							</div>
+							<div class="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
+								<img src="https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg" alt="Model wearing plain white basic tee." class="h-full w-full object-cover object-center">
+							</div>
+						</div>
+			-->
+			<!-- Product info -->
+			<div class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
+				<div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+					<h1 class="text-4xl font-bold tracking-tight text-gray-900 lg:text-4xl">{{ oneAnnonce.titre }}</h1>
+				</div>
+
+				<!-- Options -->
+				<div class="mt-4 lg:row-span-3 lg:mt-0">
+					<p class="text-3xl tracking-tight text-gray-900">{{ oneAnnonce.prix }}
+						€</p>
+					<form class="mt-10">
+						<div class="border-2 border-gray-300 rounded-2xl">
+							<div class="mx-auto py-6 lg:flex lg:items-center">
+								<i class="h-1/6 w-1/6 ml-5 mr-8" data-feather="user"></i>
+								<p>
+									<a href="{{path('app_profil', {'id': oneAnnonce.vendeur.id})}}">{{ oneAnnonce.vendeur.prenom }}
+										{{ oneAnnonce.vendeur.nom }}</a>
+								</p>
+							</div>
+						</div>
+						<a href="https://paypal.me/TTorrente?country.x=FR&locale.x=fr_FR" target="_blank" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Acheter</a>
+					</form>
+					<div class="w-full mt-14">
+						<div class="text-center mb-4">Conseillez-vous ce vendeur ?</div>	
+						{{ include('vote/vote.html.twig', {'vendeurId': oneAnnonce.vendeur.id})}}
+					</div>
+				</div>
+
+
+				<div
+					class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
+					<!-- Description and details -->
+					<div>
+						<hr/>
+						<br>
+						<h3 class="sr-only">Description</h3>
+
+						<div class="space-y-6">
+							<p class="text-base text-gray-900">{{ oneAnnonce.description }}</p>
+						</div>
+					</div>
+					<br>
+					<hr/>
+					<br>
+					<div>
+						<h3 class="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">Tags :</h3>
+						<div class="space-y-2 mt-3">
+							{% for tag in oneAnnonce.tags %}
+								<a href="{{path('app_annonces_tags', {'nom': tag.nom})}}">#
+									{{tag.nom}}</a>
+							{% endfor %}
+						</div>
+					</div>
+					<br>
+					<hr/>
+					<br>
+					<div class="lg:flex lg:items-center">
+						<i class="h-6 w-6 mr-3" data-feather="package"></i>
+						<p>Faites-vous livrer à partir de 10,99 € ou choisissez la remise en main propre avec paiement sécurisé</p>
+					</div>
+					<div class="lg:flex lg:items-center mt-3">
+						<i class="h-6 w-6 mr-3" data-feather="dollar-sign"></i>
+						<p>Bénéficiez de la protection acheteurs leboncoin</p>
+					</div>
+					<div class="lg:flex lg:items-center mt-3">
+						<i class="h-6 w-6 mr-3" data-feather="lock"></i>
+						<p>Paiement sécurisé</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr/>
+
+
+		{# Ecritures des commentaires #}
+		<div class="mt-12" id="addComent">
+			{{ render(controller(
+        'App\\Controller\\CommentairesController::commentaireInAnnonce', {annonce: oneAnnonce}
+    )) }}
+		</div>
+
+		{# Tous les commentaires #}
+		{% if oneAnnonce.commentaires %}
+		{% for commentaire in oneAnnonce.commentaires %}
+			<div class="flex flex-wrap">
+				<div class="px-10">
+					<div class="bg-white max-w-xl rounded-2xl px-10 py-8 shadow-lg hover:shadow-2xl transition duration-500">
+						<svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+						</svg>
+						<div class="mt-4">
+							<p class="mt-4 text-md ">
+								{{ commentaire.message }}</p>
+							<span class="text-gray-600">{{commentaire.datePublication| date('d-m-Y')}}</span>
+							<div class="flex justify-between items-center">
+								<div class="mt-4 flex items-center space-x-4 py-6">
+									<div class="">
+										<svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user h-1/6 w-1/6 ml-5 mr-8">
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+											<circle cx="12" cy="7" r="4"></circle>
+										</svg>
+									</div>
+									<div class="text-sm font-semibold">
+										{{ commentaire.idUser.prenom }}
+										{{ commentaire.idUser.nom }}
+
+										{% if commentaire.getIdUser == oneAnnonce.getVendeur %}
+											<span class="font-normal">(Vendeur)</span>
+										{% else %}
+											<span class="font-normal">(Acheteur potentielle)</span>
+										{% endif %}
+
+									</div>
+								</div>
+								<div class="p-6 bg-yellow-400 rounded-full h-4 w-4 flex items-center justify-center text-2xl text-white mt-4 shadow-lg cursor-pointer">
+									<a href="#addComent">+</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		{% endif %}
+		<script src="{{ asset('assets/js/index.js') }}"></script>
+	{% endblock %}

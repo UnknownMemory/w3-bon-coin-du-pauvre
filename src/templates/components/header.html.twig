@@ -4,7 +4,7 @@
 		<div class="flex justify-between">
 
 			<div
-				class="flex space-x-4">
+				class="flex space-x-4 items-start">
 				<!-- logo -->
 				<div>
 					<a href="{{path('app_accueil')}}" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
@@ -17,8 +17,7 @@
 
 				<!-- primary nav -->
 				<div class="hidden md:flex items-center space-x-1">
-					<a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Annonces</a>
-					<a href="#" class="py-5 px-3 text-gray-700 hover:text-gray-900">Pricing</a>
+					<a href="{{path('app_all')}}" class="py-5 px-3 text-gray-700 hover:text-gray-900">Annonces</a>
 				</div>
 			</div>
 			{% if app.user %}
@@ -29,12 +28,11 @@
 					<a href="{{path('app_logout')}}" class="py-2 px-3 bg-red-400 hover:bg-red-300 text-red-900 hover:text-red-800 rounded transition duration-300">Déconnexion</a>
 				</div>
 			{% else %}
-
-				<!-- secondary nav -->
-				<div class="hidden md:flex items-center space-x-1">
-					<a href="{{path('app_login')}}" class="py-5 px-3">Connexion</a>
-					<a href="{{path('app_register')}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Inscription</a>
+				<div class="hidden md:flex items-center space-x-1 flex items-end">
+				<a href="{{path('app_login')}}" class="py-5 px-3">Connexion</a>
+				<a href="{{path('app_register')}}" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Inscription</a>
 				</div>
+		
 			{% endif %}
 			<!-- mobile button goes here -->
 			<div class="md:hidden flex items-center">

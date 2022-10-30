@@ -1,27 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier{% endblock %}
+{% block title %}Le bon coin du pauvre |
+	{{nameAnnonce}}
+{% endblock %}
 
 {% block body %}
-    <h1 class="text-center my-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900">Modifier l'annonce</h1>
-    <div class="modif-form w-full flex justify-center">
-        {{ form_start(annonceForm) }}
-        <div class="form-control mb-4">
-            <label class="text-gray-700 text-md font-bold">Titre</label>
-            {{ form_widget(annonceForm.titre) }}
-        </div>
-        <div class="form-control mb-4">
-            <label class="text-gray-700 text-md font-bold">Description</label>
-            {{ form_widget(annonceForm.description) }}
-        </div>
-        <div class="form-control mb-4">
-            <label class="text-gray-700 text-md font-bold">Prix</label>
-            {{ form_widget(annonceForm.prix) }}
-        </div>
-        <div class="form-control mb-4">
-            <label class="text-gray-700 text-md font-bold">Image</label>
-        </div>
-            <button type="submit" class="mt-8 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Modifier</button>
-        {{ form_end(annonceForm) }}
-    </div>
+	<h1 class="text-center my-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900">Modifier l'annonce :
+		{{nameAnnonce}}
+	</h1>
+	<div class="modif-form w-full flex justify-center">
+		{{ form_start(annonceForm) }}
+		<div class="form-control mb-4">
+			<label class="text-gray-700 text-md font-bold">Titre</label>
+			{{ form_widget(annonceForm.titre) }}
+		</div>
+		<div class="form-control mb-4">
+			<label class="text-gray-700 text-md font-bold">Description</label>
+			{{ form_widget(annonceForm.description) }}
+		</div>
+		<div class="form-control mb-4">
+			<label class="text-gray-700 text-md font-bold">Prix</label>
+			{{ form_widget(annonceForm.prix) }}
+		</div>
+		<div class="form-control mb-4">
+			<label class="text-gray-700 text-md font-bold">Image</label>
+		</div>
+		<button type="submit" class="mt-8 bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Modifier</button>
+		{{ form_end(annonceForm) }}
+	</div>
 {% endblock %}

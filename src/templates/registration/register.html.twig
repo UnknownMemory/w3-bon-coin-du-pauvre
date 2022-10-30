@@ -1,26 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
+{% block head %}
+	<a href="https://front.codes/" class="logo" target="_blank">
+	<img src="https://assets.codepen.io/1462889/fcy.png" alt=""></a>
 {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/login_style.css') }}">
+{% endblock %}
+
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
 	{% for flash_error in app.flashes('verify_email_error') %}
 		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 	{% endfor %}
 
-	<h1 class="text-center">S'inscrire</h1>
+	<h2 class="flex justify-center mt-16 uppercase">Inscription</h2>
 
+	<div class="w-full flex justify-center">
+	<form class="w-full max-w-lg mt-9 shadow-2xl" id="formulaire" method="post">
+  	<div class="flex flex-wrap items-center flex-col mx-3 pl-2 pt-3 mb-6">
+	
 	{{ form_start(registrationForm) }}
-	{{ form_row(registrationForm.prenom) }}
-	{{ form_row(registrationForm.nom) }}
-	{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe'
-        }) }}
-	{{ form_row(registrationForm.agreeTerms, {
-        label: 'J\'accepte les conditions d\'utilisation'
-    }) }}
+	<div class="w-full flex flex-col justify-start">
+		<div class="w-15">
+			{{form_label(registrationForm.prenom, 'Prenom', {'label_attr': {'class': 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-start'}} ) }}
+			{{form_widget(registrationForm.prenom, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'} })}}
+    	</div>
+		<div class="w-15">
+			{{form_label(registrationForm.nom, 'Nom', {'label_attr': {'class': 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-start'}} ) }}
+			{{form_widget(registrationForm.nom, {'attr': {'class': ' form-color appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'} })}}
+		</div>
+	</div>
+	<div class="w-full flex flex-col justify-start">
+		<div class="w-15">
+			{{form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-start'}} ) }}
+			{{form_widget(registrationForm.email, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'} })}}
+		</div>
+		<div class="w-15">
+			{{form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1 ml-4 mt-2 flex justify-start'}} ) }}
+			{{form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-color appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'} })}}
+		</div>
+	</div>
+	{% block form_row %}
+		<div class="form_row flex flex-row pl-2 space-x-2">
+			{{ form_row(registrationForm.agreeTerms, {label: 'J\'accepte les conditions d\'utilisation'})}}
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		</div>
+	{% endblock %}
 
-	<button type="submit" class="btn">S'inscrire</button>
-	{{ form_end(registrationForm) }}
+		<button type="submit" class="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">C'est parti !</button>
+			{{ form_end(registrationForm) }}
 {% endblock %}

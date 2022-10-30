@@ -47,10 +47,6 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $vote = new Votes();
-            $vote->setIdUser($user);
-            $vote->setAVoter(false);
-
             $entityManager->persist($user);
             $entityManager->flush();
 

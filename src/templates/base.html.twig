@@ -13,8 +13,7 @@
 		{% block stylesheets %}
 
 			{# CSS LOCAL #}
-			<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
+				<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
@@ -26,6 +25,8 @@
 	</head>
 	<body>
 		{% include "components/header.html.twig" %}
+		{% block altbody %}
+		{% endblock %}
 		<section class="container mx-auto md:px-12 px-2">
 			{% block body %}
 			{% endblock %}
